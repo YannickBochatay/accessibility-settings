@@ -1,0 +1,48 @@
+@font-face {
+  font-family: alex-brush;
+  src: url(https://fonts.cdnfonts.com/s/13498/AlexBrush-Regular.woff);
+}
+html {
+  --background: #efeff1;
+  --foreground: #fbfbfb;
+  --border: #dedde2;
+
+  --copy: #252329;
+  --copy-light: #645e6e;
+  --copy-lighter: #8a8495;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size:16px;
+  line-height:1.5;
+  color:var(--copy);
+  scroll-behavior:smooth;
+  background-color: var(--background);
+}
+h1 {
+  font-family: alex-brush, sans-serif;
+  font-size:4rem;
+  text-align:center;
+}
+a {
+  color:var(--copy);
+}
+nav {
+  padding:0px 30px;
+  border-radius:5px;
+  border:1px solid var(--border);
+  background-color: var(--foreground);
+}
+main {
+  margin:auto;
+  max-width:80ch;
+}
+p {
+  text-align:left;
+  text-indent:2rem;
+  padding:10px;
+}
+accessibility-settings {
+  position:fixed;
+  top:0px;
+  right:10px;
+}
