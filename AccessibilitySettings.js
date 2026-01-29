@@ -46,21 +46,21 @@ const initialPrefs = {
 
 const preferences = new Proxy(initialPrefs, {
   set(obj, prop, value) {
-
-    if (prop === "dyslexicFont") {
-      if (value) root.classList.add("dyslexic");
-      else root.classList.remove("dyslexic");
-
-    } else if (prop === "invertedColors") {
-      if (value) root.classList.add("invertedColors");
-      else root.classList.remove("invertedColors");
-    } else if (prop === "contrast") {
-      root.style.fontSize = value + "px";
-    } else if (prop === "fontSize") {
-      root.style.fontSize = value + "px";
-
-    } else if (prop === "lineHeight") {
-      root.style.lineHeight = value;
+    switch (prop) {
+      case "dyslexicFont":
+        if (value) root.classList.add("dyslexic");
+        else root.classList.remove("dyslexic");
+        break;
+      case "invertedColors":
+        if (value) root.classList.add("invertedColors");
+        else root.classList.remove("invertedColors");
+        break;
+      case "fontSize":
+        root.style.fontSize = value + "px";
+        break;
+      case "lineHeight":
+        root.style.lineHeight = value;
+        break;
     }
 
     obj[prop] = value;
@@ -71,7 +71,7 @@ const preferences = new Proxy(initialPrefs, {
 
 const defaultPrefs = { ...initialPrefs };
 
-export function resetPrefs() {
+function resetPrefs() {
   for (let key in defaultPrefs) {
     preferences[key] = defaultPrefs[key];
   }
@@ -87,6 +87,68 @@ if (storedData) {
   }
 }
 
+const style = `
+  :host {
+    font-size:18px;
+    line-height:1.5;
+    position:fixed;
+    top:3px;
+    right:5px;
+  }
+  details {
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    
+    summary {
+      transition:transform 0.3s;
+      cursor:pointer;
+      border:1px solid #ccc;
+      background-color:#ddd;
+      border-radius:50%;
+      display:flex;
+      svg {
+        width:40px;
+        height:40px;
+      }
+      &::marker {
+        content:"";
+      }
+      &:hover {
+        background-color:#e1e1e1;
+      }
+    }
+
+    &:open summary {
+      transform:rotate(90deg);
+      transition:transform 0.2s;
+    }
+
+    form {
+      font-size:1em;
+      padding:10px 20px;
+      border:1px solid #ccc;
+      color:#222;
+      background-color:#fafafa;
+      line-height:3;
+      text-align: left;
+      border-radius:5px;
+      
+      input {
+        font-size:1em;
+        font-family:unset;
+      }
+
+      input[type=number] {
+        width:5ch;
+        border:1px solid #ccc;
+        border-radius:5px;
+        padding:3px;
+      }
+    }
+  }
+`
+
 
 export class AccessibilitySettings extends HTMLElement {
 
@@ -100,82 +162,33 @@ export class AccessibilitySettings extends HTMLElement {
     const root = this.attachShadow({ mode : "open" });
 
     root.innerHTML = `
-      <style>
-        :host {
-          font-size:18px;
-          line-height:1.5;
-          position:fixed;
-          top:3px;
-          right:5px;
-        }
-        details {
-          display:flex;
-          flex-direction:column;
-          align-items:flex-end;
-          
-          summary {
-            transition:transform 0.3s;
-            cursor:pointer;
-            border:1px solid #ccc;
-            background-color:#ddd;
-            border-radius:50%;
-            height:40px;
-            &::marker {
-              content:url(data:image/svg+xml;base64,DQo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDM4OS45IDM4OS42IiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiPg0KICA8Y2lyY2xlIHN0cm9rZT0iYmxhY2siIGZpbGw9Im5vbmUiIGN4PSIyNTAuNiIgY3k9IjE0Ni40IiByPSIzNS43IiB0cmFuc2Zvcm09Im1hdHJpeCguMTYwMjI2IC0uOTg3MDggLjk4NzA4IC4xNjAyMjYgNi43NSAzMTEuNzEpIj48L2NpcmNsZT4NCiAgPHBhdGggZmlsbD0iYmxhY2siIGQ9Ik0xOTEuNCAxMzAuN2MtMjMuNjkzIDAtNDIuOS0xOS4yMDctNDIuOS00Mi45czE5LjIwNy00Mi45IDQyLjktNDIuOSA0Mi45IDE5LjIwNyA0Mi45IDQyLjlhNDIuODkgNDIuODkgMCAwIDEtNDIuOSA0Mi45em0wLTcxLjVjLTEzLjY5LS4wMzgtMjUuNDk4IDkuNjA1LTI4LjE5NyAyMy4wMjZhMjguNjggMjguNjggMCAwIDAgMTcuMTA1IDMyLjEzNWMxMi42NDEgNS4yNTYgMjcuMjM0Ljg0NiAzNC44NDgtMTAuNTMxQTI4LjY4IDI4LjY4IDAgMCAwIDIxMS42IDY3LjZhMjkuMDYgMjkuMDYgMCAwIDAtMjAuMi04LjR6bTUyLjUgMjc4LjZhMjEuNDYgMjEuNDYgMCAwIDEtMTkuNS0xMi42bC0zMy4xLTgwLjMtMzIuNyA4MC4xYTIxLjQxIDIxLjQxIDAgMCAxLTM3LjEgNC4xIDIxLjU3IDIxLjU3IDAgMCAxLTIuMS0yMS41bDM0LjQtODcuNWEyNi42MyAyNi42MyAwIDAgMCAxLjktMTAuNHYtMTYuNGE3LjA5IDcuMDkgMCAwIDAtNi41LTcuMWwtNjAuNi01LjVjLTExLjc5MS0uOTExLTIwLjYxMS0xMS4yMDktMTkuNy0yM3MxMS4yMDktMjAuNjExIDIzLTE5LjdsNzUuMSA2LjdhOTcuMTggOTcuMTggMCAwIDAgNy43LjNoMzMuNGE5OS4wOCA5OS4wOCAwIDAgMCA3LjctLjNsNzUtNi43aC4xYzExLjc5MS0uOTExIDIyLjA4OSA3LjkwOSAyMyAxOS43cy03LjkwOSAyMi4wODktMTkuNyAyM2wtNjAuNSA1LjVhNy4wOSA3LjA5IDAgMCAwLTYuNSA3LjF2MTYuNGEyOC4yOSAyOC4yOSAwIDAgMCAyIDEwLjRsMzQuNSA4Ny45YTIxLjM2IDIxLjM2IDAgMCAxLTEuOCAyMC4yIDIyLjA2IDIyLjA2IDAgMCAxLTE4IDkuNnptLTUyLjUtMTA3LjFhMTQuMTEgMTQuMTEgMCAwIDEgMTMuMSA4LjhsMzMgODAuMWE3LjYyIDcuNjIgMCAwIDAgMy45IDMuNiA3LjEzIDcuMTMgMCAwIDAgOS05LjZsLTM0LjYtODguM2E0Mi4xNCA0Mi4xNCAwIDAgMS0zLTE1Ljd2LTE2LjRjLS4wNTQtMTEuMTAxIDguNDM4LTIwLjM3NiAxOS41LTIxLjNsNjAuNi01LjVhNyA3IDAgMCAwIDQuOS0yLjQgNi42MSA2LjYxIDAgMCAwIDEuNy01LjIgNyA3IDAgMCAwLTcuNi02LjZsLTc0LjkgNi43YTg4LjMzIDg4LjMzIDAgMCAxLTguOS40aC0zMy40YTg3IDg3IDAgMCAxLTguOS0uNGwtNzUtNi43YTcuMTIgNy4xMiAwIDAgMC0xIDE0LjJsNjAuNyA1LjVjMTEuMDYyLjkyNCAxOS41NTQgMTAuMTk5IDE5LjUgMjEuM3YxNi40YTQyLjE0IDQyLjE0IDAgMCAxLTMgMTUuN2wtMzQuNSA4Ny45YTcuMDkgNy4wOSAwIDAgMCAuMyA3LjMgNy4xOSA3LjE5IDAgMCAwIDYuNiAzLjIgNyA3IDAgMCAwIDUuOS00LjNsMzIuOS03OS45YTE0IDE0IDAgMCAxIDEzLjItOC44eiI+PC9wYXRoPg0KPC9zdmc+);
-            }
-            &:hover {
-              background-color:#e1e1e1;
-            }
-          }
-
-          &:open summary {
-            transform:rotate(90deg);
-            transition:transform 0.2s;
-          }
-
-          form {
-            font-size:1em;
-            padding:10px 20px;
-            border:1px solid #ccc;
-            color:#222;
-            background-color:#fafafa;
-            line-height:3;
-            text-align: left;
-            border-radius:5px;
-           
-            input {
-              font-size:1em;
-              font-family:unset;
-            }
-
-            input[type=number] {
-              width:5ch;
-              border:1px solid #ccc;
-              border-radius:5px;
-              padding:3px;
-            }
-          }
-        }
-      </style>
+      <style>${style}</style>
       <details part="details">
-        <summary part="summary" aria-label="accessibility settings"></summary>
+        <summary part="summary" aria-label="accessibility settings">
+          <svg viewBox="0 0 389.9 389.6" part="icon">
+            <circle stroke="black" fill="none" cx="250.6" cy="146.4" r="35.7" transform="matrix(.160226 -.98708 .98708 .160226 6.75 311.71)"></circle>
+            <path fill="black" d="M191.4 130.7c-23.693 0-42.9-19.207-42.9-42.9s19.207-42.9 42.9-42.9 42.9 19.207 42.9 42.9a42.89 42.89 0 0 1-42.9 42.9zm0-71.5c-13.69-.038-25.498 9.605-28.197 23.026a28.68 28.68 0 0 0 17.105 32.135c12.641 5.256 27.234.846 34.848-10.531A28.68 28.68 0 0 0 211.6 67.6a29.06 29.06 0 0 0-20.2-8.4zm52.5 278.6a21.46 21.46 0 0 1-19.5-12.6l-33.1-80.3-32.7 80.1a21.41 21.41 0 0 1-37.1 4.1 21.57 21.57 0 0 1-2.1-21.5l34.4-87.5a26.63 26.63 0 0 0 1.9-10.4v-16.4a7.09 7.09 0 0 0-6.5-7.1l-60.6-5.5c-11.791-.911-20.611-11.209-19.7-23s11.209-20.611 23-19.7l75.1 6.7a97.18 97.18 0 0 0 7.7.3h33.4a99.08 99.08 0 0 0 7.7-.3l75-6.7h.1c11.791-.911 22.089 7.909 23 19.7s-7.909 22.089-19.7 23l-60.5 5.5a7.09 7.09 0 0 0-6.5 7.1v16.4a28.29 28.29 0 0 0 2 10.4l34.5 87.9a21.36 21.36 0 0 1-1.8 20.2 22.06 22.06 0 0 1-18 9.6zm-52.5-107.1a14.11 14.11 0 0 1 13.1 8.8l33 80.1a7.62 7.62 0 0 0 3.9 3.6 7.13 7.13 0 0 0 9-9.6l-34.6-88.3a42.14 42.14 0 0 1-3-15.7v-16.4c-.054-11.101 8.438-20.376 19.5-21.3l60.6-5.5a7 7 0 0 0 4.9-2.4 6.61 6.61 0 0 0 1.7-5.2 7 7 0 0 0-7.6-6.6l-74.9 6.7a88.33 88.33 0 0 1-8.9.4h-33.4a87 87 0 0 1-8.9-.4l-75-6.7a7.12 7.12 0 0 0-1 14.2l60.7 5.5c11.062.924 19.554 10.199 19.5 21.3v16.4a42.14 42.14 0 0 1-3 15.7l-34.5 87.9a7.09 7.09 0 0 0 .3 7.3 7.19 7.19 0 0 0 6.6 3.2 7 7 0 0 0 5.9-4.3l32.9-79.9a14 14 0 0 1 13.2-8.8z"></path>
+          </svg>
+          <slot name="icon"></slot>
+        </summary>
         <form part="form">
-          <div>
+          <div part="dislexic-font">
             <input type="checkbox" id="dyslexic-field">
             <label for="dyslexic-field">Police dyslexie</label>
           </div>
-          <div>
+          <div part="inverted-colors">
             <input type="checkbox" id="colors-field">
             <label for="colors-field">Couleurs inversées</label>
           </div>
-          <div>
+          <div part="font-size">
             <input type="number" id="fontSize-field">
             <label for="fontSize-field">Taille de police</label>
           </div>
-          <div>
+          <div part="line-height">
             <input type="number" id="lineHeight-field" step="0.1">
             <label for="lineHeight-field">Interligne</label>
           </div>
+          <slot name="more-options"></slot>
           <input type="button" id="reset-preferences" value="Réinitialiser"/>
           <input type="button" id="close-preferences" value="Terminer"/>
         </form>
