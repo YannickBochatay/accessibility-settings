@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
   <script src="AccessSettings.js" type="module"></script>
-  <title>TP Javascript</title>
+  <title>Access Settings Demo</title>
 </head>
 
 <body>
@@ -22,13 +22,18 @@
     <access-settings all side="left" rounded></access-settings>
 
     <access-settings all rounded>
-      <span slot="icon">⚙︎</span>
-      <div slot="more-options">
+      <span slot="icon">♻</span>
+      <div slot="option">
         <label>
           <input type="checkbox"/>
           One more option
         </label>
-
+      </div>
+      <div slot="option">
+        <label>
+          <input type="checkbox"/>
+          Another more option
+        </label>
       </div>
     </access-settings>
 

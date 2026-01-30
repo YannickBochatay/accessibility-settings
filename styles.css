@@ -43,35 +43,13 @@ p {
 }
 access-settings:nth-of-type(2) {
   top:50%;
-  [slot=icon] {
-    font-size:30px;
-    margin:0 8px;
-  }
-  &::part(icon) {
-    display:none;
-  }
 }
 access-settings:nth-of-type(3) {
-  &::part(summary) {
-    background-color: brown;
-  }
   &::part(icon) {
+    background-color: brown;
     fill:white;
   }
 }
 access-settings:nth-of-type(4) {
   top:50%;
-  [slot=icon] {
-    font-size:30px;
-    margin:0 8px;
-    transform:rotate(0deg);
-    transition:transform 0.3s;
-  }
-  &::part(details):open [slot=icon] {
-    transform:rotate(180deg);
-    transition:transform 0.3s;
-  }
-  &::part(icon) {
-    display:none;
-  }
 }
