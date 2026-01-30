@@ -50,7 +50,7 @@ const preferences = new Proxy(initialPrefs, {
   set(obj, prop, value) {
     obj[prop] = value;
     listeners.forEach(callback => callback(prop, value))
-    return true;localStorage.setItem(STORAGE_NAME, JSON.stringify(obj));
+    return true;
   }
 });
 
@@ -71,9 +71,7 @@ listeners.push((prop, value) => {
       root.style.lineHeight = value;
       break;
   }
-})
 
-listeners.push((prop, value) => {
   localStorage.setItem(STORAGE_NAME, JSON.stringify(preferences));
 })
 
@@ -240,7 +238,7 @@ template.innerHTML = `
 `;
 
 
-export class AccessibilitySettings extends HTMLElement {
+export class AccessSettings extends HTMLElement {
 
   #fontField
   #colorsField
@@ -287,4 +285,4 @@ export class AccessibilitySettings extends HTMLElement {
 }
 
 
-customElements.define('accessibility-settings', AccessibilitySettings);
+customElements.define('access-settings', AccessSettings);
