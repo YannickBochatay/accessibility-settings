@@ -103,6 +103,36 @@ const style = `
     top:3px;
     right:5px;
   }
+  :host([side="left"]) {
+    right:unset;
+    left:5px;
+    details {
+      align-items: flex-start;
+    }
+  }
+  :host([all]), :host([dyslexic-font]) {
+    form .field[part=dyslexic-font] {
+      display:block;
+    }
+  }
+  :host([all]), :host([inverted-colors]) {
+    form .field[part=inverted-colors] {
+      display:block;
+    }
+  }
+  :host([all]), :host([font-size]) {
+    form .field[part=font-size] {
+      display:block;
+    }
+  }
+  :host([all]), :host([line-height]) {
+    form .field[part=line-height] {
+      display:block;
+    }
+  }
+  :host([rounded]) summary {
+    border-radius:50%;
+  }
   details {
     display:flex;
     flex-direction:column;
@@ -133,8 +163,9 @@ const style = `
       text-align: left;
       border-radius:5px;
 
-      > div {
+      .field  {
         padding: 0 25px 0 15px;
+        display:none;
         &:hover {
           background-color:#eee;
         }
@@ -183,19 +214,19 @@ template.innerHTML = `
       <slot name="icon"></slot>
     </summary>
     <form part="form">
-      <div part="dislexic-font">
+      <div class="field" part="dyslexic-font">
         <input type="checkbox" id="dyslexic-field">
         <label for="dyslexic-field">Police dyslexie</label>
       </div>
-      <div part="inverted-colors">
+      <div class="field" part="inverted-colors">
         <input type="checkbox" id="colors-field">
         <label for="colors-field">Couleurs inversées</label>
       </div>
-      <div part="font-size">
+      <div class="field" part="font-size">
         <input type="number" id="fontSize-field">
         <label for="fontSize-field">Taille de police</label>
       </div>
-      <div part="line-height">
+      <div class="field" part="line-height">
         <input type="number" id="lineHeight-field" step="0.1">
         <label for="lineHeight-field">Interligne</label>
       </div>

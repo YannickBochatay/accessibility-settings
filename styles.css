@@ -52,13 +52,7 @@ accessibility-settings:nth-of-type(2) {
   }
 }
 accessibility-settings:nth-of-type(3) {
-  right:unset;
-  left:5px;
-  &::part(details) {
-    align-items: flex-start;
-  }
   &::part(summary) {
-    border-radius:50%;
     background-color: brown;
   }
   &::part(icon) {
@@ -67,11 +61,6 @@ accessibility-settings:nth-of-type(3) {
 }
 accessibility-settings:nth-of-type(4) {
   top:50%;
-  right:unset;
-  left:5px;
-  &::part(details) {
-    align-items: flex-start;
-  }
   [slot=icon] {
     font-size:30px;
     margin:0 8px;
