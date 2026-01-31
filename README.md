@@ -4,17 +4,18 @@ Web component for accessibility settings
 ## Demo
 https://yannickbochatay.github.io/access-settings/example
 
-## Install
-Download [source file](https://raw.githubusercontent.com/YannickBochatay/access-settings/refs/heads/main/dist/index.js) on Github.
+## Installation
 
-Link file in your html and use the `access-settings` component where you want. 
+### From CDN
+The fastest and simplest way to get started.
+
 ```html
 <!DOCTYPE html>
 <html lang="fr">
   <head>
     <meta charset="UTF-8">
     <title>My accessible page</title>
-    <script src="js/AccessSettings.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/access-settings@0.0.1/"></script>
   </head>
   <body>
     <access-settings all></accessibility-settings>
@@ -22,23 +23,61 @@ Link file in your html and use the `access-settings` component where you want.
 </html>
 ```
 
-## Customization
-By default, the component is displayed in a fixed position at the top right of the screen. You can change this in CSS.
-```css
-accessibility-settings {
-  position:absolute;
-  top:0;
-  left:0;
-}
+### NPM
+```sh
+npm install access-settings
+```
+```html
+<script src="node_modules/access-settings/dist/index.js"></script>
 ```
 
-### Rounded style
+### Direct download
+
+You can download the [file directly from GitHub]((https://raw.githubusercontent.com/YannickBochatay/access-settings/refs/heads/main/dist/index.js)).
+
+
+## Usage
+
+### Attributes
+#### all
+To display all the options, add the `all` attribute. Otherwise add specific options to display.
+```html
+<access-settings all>
+</access-settings>
+```
+```html
+<access-settings dyslexic-font invert-colors font-size line-height>
+</access-settings>
+```
+
+#### side
+By default, the component has a fixed position at the top right of the screen. The drop-down menu will align to the right with the icon. To position it on the left, use the ‘side’ attribute. 
+```html
+<access-settings side="left">
+</access-settings>
+```
+
+#### rounded
+To display the icon in a circle, use `rounded` attribute.
 ```html
 <access-settings all rounded>
 </access-settings>
 ```
 
-### Change icon style
+## Customisation
+
+### Position
+Customise the position of the component in CSS
+```css
+accessibility-settings {
+  position:absolute;
+  top:150px;
+  right:5px;
+}
+```
+Define `left` css property if the attribute `side` is set to left.
+
+### Icon style
 ```css
 access-settings::part(icon) {
   background-color: brown;
@@ -50,12 +89,6 @@ access-settings::part(icon) {
 ```html
 <access-settings all>
   <span slot="icon">⚙︎</span>
-</access-settings>
-```
-
-### Choose options to display
-```html
-<access-settings dyslexic-font invert-colors font-size line-height>
 </access-settings>
 ```
 
