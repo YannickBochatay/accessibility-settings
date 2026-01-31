@@ -1,0 +1,18 @@
+{
+    "fr" : {
+      "dyslexic-font" : "Police dyslexie",
+      "inverted-colors" : "Couleurs inversées",
+      "font-size" : "Taille de police",
+      "line-height" : "Hauteur de ligne",
+      "reset" : "Réinitialiser",
+      "close" : "Terminer"
+    },
+    "en" : {
+      "dyslexic-font" : "Dyslexic font",
+      "inverted-colors" : "Inverted colors",
+      "font-size" : "Font size",
+      "line-height" : "Line height",
+      "reset" : "Reset",
+      "close" : "Close"
+    }
+  }

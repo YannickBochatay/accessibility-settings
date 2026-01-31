@@ -1,0 +1,29 @@
+{
+  "name": "access-settings",
+  "version": "0.0.1",
+  "description": "web component for accessibility settings",
+  "main": "dist/index.js",
+  "scripts": {
+    "build-max": "esbuild src/index.js --bundle --outfile=dist/index.js",
+    "build-min": "esbuild src/index.js --bundle --minify --outfile=dist/index.min.js",
+    "build": "npm run build-max && npm run build-min",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YannickBochatay/access-settings.git"
+  },
+  "keywords": [
+    "accessiblity",
+    "webcomponent"
+  ],
+  "author": "Yannick Bochatay",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/YannickBochatay/access-settings/issues"
+  },
+  "homepage": "https://github.com/YannickBochatay/access-settings#readme",
+  "devDependencies": {
+    "esbuild": "0.27.2"
+  }
+}
