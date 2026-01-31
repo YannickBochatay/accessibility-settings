@@ -73,8 +73,9 @@ export class AccessSettings extends HTMLElement {
   }
 
   #handleLangChange() {
-    const lang = document.documentElement.lang
-    const locale = this.constructor.languages[lang]
+    const lang = document.documentElement.lang || 'en'
+    const { languages } = this.constructor
+    const locale = languages[lang] ?? languages.en
     const labels = this.shadowRoot.querySelectorAll("label")
 
     for (let label of labels) {
