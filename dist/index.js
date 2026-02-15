@@ -17,19 +17,19 @@
   :root.dyslexic {
     font-family:var(--access-font-family);
     body, header, footer, main, article, section, aside, p {
-      font-family:var(--access-font-family);
+      font-family:var(--access-font-family) !important;
     }
   }
   :root.lineHeight {
     line-height:var(--access-line-height);
     body, header, footer, main, article, section, aside, p {
-      line-height:var(--access-line-height);
+      line-height:var(--access-line-height) !important;
     }
   }
   :root.fontSize {
-    font-size:var(--access-font-family);
+    font-size:var(--access-font-size);
     body, header, footer, main, article, section, aside, p {
-      font-size:var(--access-font-size);
+      font-size:1rem !important;
     }
   }
   :root.invertedColors {
@@ -48,9 +48,19 @@
   
   @media (prefers-color-scheme: dark) {
     :root:has(access-settings[invert-colors], access-settings[all]) {
-      filter:invert(1);
+      &:not(.contrasted) {
+        filter:invert(1);
+      }
+      &.contrasted {
+        filter:invert(1) contrast(var(--access-contrast));
+      }
       &.invertedColors {
-        filter:invert(0);
+        &:not(.contrasted) {
+          filter:invert(0);
+        }
+        &.contrasted {
+          filter:invert(0) contrast(var(--access-contrast));
+        }
       }
     }
   }
@@ -92,7 +102,7 @@
   function getInitialFontSize(elmt = root) {
     let fontSize = getComputedStyle(elmt).fontSize;
     let value = Number.parseInt(fontSize);
-    if (Number.isNaN(value)) {
+    if (Number.isNaN(value) && elmt === root) {
       let p = document.createElement("p");
       document.body.appendChild(p);
       value = getInitialFontSize(p);
@@ -112,8 +122,9 @@
         p.style.padding = 0;
         p.textContent = "toto";
         document.body.appendChild(p);
-        value = getInitialLineHeight(p);
+        let lineHeight2 = getInitialLineHeight(p);
         p.remove();
+        return lineHeight2;
       } else {
         return elmt.getBoundingClientRect().height;
       }

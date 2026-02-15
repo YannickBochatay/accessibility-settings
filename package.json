@@ -1,6 +1,6 @@
 {
   "name": "access-settings",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "web component for accessibility settings",
   "main": "dist/index.js",
   "scripts": {
