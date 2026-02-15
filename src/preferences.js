@@ -2,20 +2,49 @@ import { createState } from "./createState.js";
 
 const root = document.documentElement;
 
-function getInitialFontSize() {
-  let fontSize = getComputedStyle(root).fontSize;
-  return Number.parseInt(fontSize);
+function getInitialFontSize(elmt = root) {
+  let fontSize = getComputedStyle(elmt).fontSize;
+  let value = Number.parseInt(fontSize);
+
+  if (Number.isNaN(value)) {
+    let p = document.createElement("p");
+    document.body.appendChild(p);
+    value = getInitialFontSize(p);
+    p.remove();
+  }
+
+  return value;
 }
 
-function getInitialLineHeight() {
-  let lineHeight = getComputedStyle(root).lineHeight;
-  return Number.parseInt(lineHeight) / getInitialFontSize();
+function getInitialLineHeight(elmt = root) {
+  let lineHeight = getComputedStyle(elmt).lineHeight;
+
+  if (!isNaN(lineHeight)) return Number(lineHeight);
+
+  let value = Number.parseInt(lineHeight);
+
+  if (Number.isNaN(value)) {
+    if (elmt === root) {
+      let p = document.createElement("p");
+      p.style.margin = 0
+      p.style.border = "none"
+      p.style.padding = 0
+      p.textContent = "toto";
+      document.body.appendChild(p);
+      value = getInitialLineHeight(p);
+      p.remove();
+    } else {
+      return elmt.getBoundingClientRect().height
+    }
+  }
+
+  return Math.round(value * 10 / getInitialFontSize()) / 10;
 }
 
 const initialPrefs = {
   dyslexicFont : false,
   invertedColors : false,
-  contraste : 100,
+  contrast : 100,
   fontSize : getInitialFontSize(),
   lineHeight : getInitialLineHeight()
 };
@@ -32,11 +61,17 @@ onStateChange((prop, value) => {
       if (value) root.classList.add("invertedColors");
       else root.classList.remove("invertedColors");
       break;
+    case "contrast":
+      root.classList.add("contrasted");
+      root.style.setProperty('--access-contrast', value + "%");
+      break;
     case "fontSize":
-      root.style.fontSize = value + "px";
+      root.classList.add("fontSize");
+      root.style.setProperty('--access-font-size', value + "px");
       break;
     case "lineHeight":
-      root.style.lineHeight = value;
+      root.classList.add("lineHeight");
+      root.style.setProperty('--access-line-height', value);
       break;
   }
 })
@@ -46,6 +81,8 @@ const defaultPrefs = { ...initialPrefs };
 export function resetPrefs() {
   for (let key in defaultPrefs) {
     preferences[key] = defaultPrefs[key];
+    root.classList.remove("fontSize", "lineHeight", "contrasted");
+    localStorage.removeItem(STORAGE_NAME);
   }
 }
 

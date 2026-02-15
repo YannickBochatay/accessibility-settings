@@ -1,4 +1,4 @@
-export const style = `
+export const style = /*css*/`
   :host {
     font-size:18px;
     line-height:1.5;
@@ -20,6 +20,11 @@ export const style = `
   }
   :host([all]), :host([invert-colors]) {
     form .field[part=invert-colors] {
+      display:block;
+    }
+  }
+  :host([all]), :host([contrast]) {
+    form .field[part=contrast] {
       display:block;
     }
   }

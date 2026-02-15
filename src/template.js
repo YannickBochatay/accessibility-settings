@@ -33,6 +33,10 @@ template.innerHTML = `
         <input type="checkbox" id="inverted-colors">
         <label for="inverted-colors">Couleurs inversées</label>
       </div>
+      <div class="field" part="contrast">
+        <input type="number" step="10" id="contrast" min="50" max="150">
+        <label for="contrast">Contraste</label>
+      </div>
       <div class="field" part="font-size">
         <input type="number" id="font-size">
         <label for="font-size">Taille de police</label>

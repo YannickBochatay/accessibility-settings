@@ -2,6 +2,7 @@
     "fr" : {
       "dyslexic-font" : "Police dyslexie",
       "inverted-colors" : "Couleurs inversées",
+      "contrast" : "Contraste",
       "font-size" : "Taille de police",
       "line-height" : "Hauteur de ligne",
       "reset" : "Réinitialiser",
@@ -10,6 +11,7 @@
     "en" : {
       "dyslexic-font" : "Dyslexic font",
       "inverted-colors" : "Inverted colors",
+      "contrast" : "Contrast",
       "font-size" : "Font size",
       "line-height" : "Line height",
       "reset" : "Reset",

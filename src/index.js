@@ -34,6 +34,7 @@ export class AccessSettings extends HTMLElement {
 
   #fontField
   #colorsField
+  #contrastField
   #fontSizeField
   #lineHeightField
   #observer
@@ -45,11 +46,13 @@ export class AccessSettings extends HTMLElement {
 
     this.#fontField = root.querySelector("#dyslexic-font");
     this.#colorsField = root.querySelector("#inverted-colors");
+    this.#contrastField = root.querySelector("#contrast");
     this.#fontSizeField = root.querySelector("#font-size");
     this.#lineHeightField = root.querySelector("#line-height");
 
     this.#fontField.addEventListener("change", e => preferences.dyslexicFont = e.target.checked);
     this.#colorsField.addEventListener("change", e => preferences.invertedColors = e.target.checked);
+    this.#contrastField.addEventListener("change", e => preferences.contrast = e.target.value);
     this.#fontSizeField.addEventListener("change", e => preferences.fontSize = e.target.value);
     this.#lineHeightField.addEventListener("change", e => preferences.lineHeight = e.target.value);
 
@@ -68,6 +71,7 @@ export class AccessSettings extends HTMLElement {
   #handleStateChange = () => {
     this.#fontField.checked = preferences.dyslexicFont;
     this.#colorsField.checked = preferences.invertedColors;
+    this.#contrastField.value = preferences.contrast;
     this.#fontSizeField.value = preferences.fontSize;
     this.#lineHeightField.value = preferences.lineHeight;
   }
