@@ -48,7 +48,7 @@ To display all the options, add the `all` attribute. Otherwise add specific opti
 </access-settings>
 ```
 ```html
-<access-settings dyslexic-font invert-colors font-size line-height>
+<access-settings dyslexic-font invert-colors contrast font-size line-height>
 </access-settings>
 ```
 
