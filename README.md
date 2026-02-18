@@ -20,7 +20,7 @@ The fastest and simplest way to get started.
     <script src="https://cdn.jsdelivr.net/npm/access-settings"></script>
   </head>
   <body>
-    <access-settings all></accessibility-settings>
+    <access-settings all></access-settings>
   </body>
 </html>
 ```
