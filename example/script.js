@@ -1,3 +1,15 @@
+import { AccessSettings } from "../src/index.js";
+
+AccessSettings.languages.oc = {
+  "dyslexic-font": "Poliça disléxica",
+  "inverted-colors": "Colors invertidas",
+  "contrast": "Contraste",
+  "font-size": "Talha de poliça",
+  "line-height": "Nautor de linha",
+  "reset": "Reïnicializar",
+  "close": "Tampar"
+}
+
 hljs.highlightAll();
 
 const access = document.createElement("access-settings");
@@ -80,6 +92,10 @@ function handleIntersect(entries, observer) {
         access.setAttribute("all", "");
         document.documentElement.lang = "en";
         break;
+      case "add-lang":
+        access.setAttribute("all", "");
+        document.documentElement.lang = "oc";
+        break;
       case "position":
         access.setAttribute("all", "");
         style.innerHTML = `
@@ -105,6 +121,24 @@ function handleIntersect(entries, observer) {
         icon.textContent = "⚙︎";
         icon.style.fontSize = "2rem";
         access.append(icon);
+        break;
+      }
+      case "add-option": {
+        access.setAttribute("all", "");
+        const option = document.createElement("div");
+        option.setAttribute("slot","option");
+        option.innerHTML = `
+          <label>
+            <input type="checkbox">
+            Une nouvelle option
+          </label>
+        `
+        const input = option.querySelector("input");
+        input.addEventListener("change", () => {
+          if (input.checked) alert("nouvelle option cochée");
+        })
+
+        access.append(option)
         break;
       }
     }

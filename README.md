@@ -67,9 +67,22 @@ To display the icon in a circle, use `rounded` attribute.
 ```
 
 #### lang
-Component labels are based on `lang` attribute in the html tag. Languages available are english (**en**) and french (**fr**). Customisation is coming.
+Component labels are based on `lang` attribute in the html tag. Languages available are english (**en**), french (**fr**) and spanish (**es**).
 
 ## Customisation
+
+### Add language
+import { AccessSettings } from "https://cdn.jsdelivr.net/npm/access-settings";
+
+AccessSettings.languages.oc = {
+  "dyslexic-font": "Poliça disléxica",
+  "inverted-colors": "Colors invertidas",
+  "contrast": "Contraste",
+  "font-size": "Talha de poliça",
+  "line-height": "Nautor de linha",
+  "reset": "Reïnicializar",
+  "close": "Tampar"
+};
 
 ### Position
 Customise the position of the component in CSS

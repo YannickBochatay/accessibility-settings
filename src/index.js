@@ -30,7 +30,15 @@ import languages from "./languages.json" with { type: "json" };
 
 export class AccessSettings extends HTMLElement {
 
-  static languages = languages
+  static languages = new Proxy(languages, {
+    set(target, prop, value) {
+      target[prop] = value;
+      for (const component of document.querySelectorAll("access-settings")) {
+        component.handleLangChange()
+      }
+      return true;
+    }
+  })
 
   #fontField
   #colorsField
@@ -61,7 +69,7 @@ export class AccessSettings extends HTMLElement {
 
     this.#observer = new MutationObserver((mutationList, observer) => {
       for (const mutation of mutationList) {
-        if (mutation.attributeName === 'lang') this.#handleLangChange();
+        if (mutation.attributeName === 'lang') this.handleLangChange();
       }
     });
   }
@@ -90,7 +98,7 @@ export class AccessSettings extends HTMLElement {
     return /^(\w+)(-\w+){0,2}$/.exec(attr)?.[1] || "en";
   }
 
-  #handleLangChange() {
+  handleLangChange() {
     const lang = this.#parseLang();
     const { languages } = this.constructor;
     const locale = languages[lang] ?? languages.en;
@@ -108,7 +116,7 @@ export class AccessSettings extends HTMLElement {
 
   connectedCallback() {
     this.#handleStateChange();
-    this.#handleLangChange();
+    this.handleLangChange();
     onStateChange(this.#handleStateChange);
     this.#observer.observe( document.documentElement, { attributes: true });
   }

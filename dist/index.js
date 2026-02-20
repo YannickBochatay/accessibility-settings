@@ -374,12 +374,29 @@
       "line-height": "Line height",
       reset: "Reset",
       close: "Close"
+    },
+    es: {
+      "dyslexic-font": "Fuente disl\xE9xica",
+      "inverted-colors": "Colores invertidos",
+      contrast: "Contraste",
+      "font-size": "Tama\xF1o de fuente",
+      "line-height": "Altura de l\xEDnea",
+      reset: "Restablecer",
+      close: "Cerrar"
     }
   };
 
   // src/index.js
   var AccessSettings = class extends HTMLElement {
-    static languages = languages_default;
+    static languages = new Proxy(languages_default, {
+      set(target, prop, value) {
+        target[prop] = value;
+        for (const component of document.querySelectorAll("access-settings")) {
+          component.handleLangChange();
+        }
+        return true;
+      }
+    });
     #fontField;
     #colorsField;
     #contrastField;
@@ -404,7 +421,7 @@
       root2.querySelector("#close").addEventListener("click", () => this.open = false);
       this.#observer = new MutationObserver((mutationList, observer) => {
         for (const mutation of mutationList) {
-          if (mutation.attributeName === "lang") this.#handleLangChange();
+          if (mutation.attributeName === "lang") this.handleLangChange();
         }
       });
     }
@@ -426,7 +443,7 @@
       if (!attr) return "en";
       return /^(\w+)(-\w+){0,2}$/.exec(attr)?.[1] || "en";
     }
-    #handleLangChange() {
+    handleLangChange() {
       const lang = this.#parseLang();
       const { languages } = this.constructor;
       const locale = languages[lang] ?? languages.en;
@@ -441,7 +458,7 @@
     }
     connectedCallback() {
       this.#handleStateChange();
-      this.#handleLangChange();
+      this.handleLangChange();
       onStateChange(this.#handleStateChange);
       this.#observer.observe(document.documentElement, { attributes: true });
     }
