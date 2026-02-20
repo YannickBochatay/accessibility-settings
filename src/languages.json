@@ -16,5 +16,14 @@
       "line-height" : "Line height",
       "reset" : "Reset",
       "close" : "Close"
+    },
+    "es": {
+      "dyslexic-font": "Fuente disléxica",
+      "inverted-colors": "Colores invertidos",
+      "contrast": "Contraste",
+      "font-size": "Tamaño de fuente",
+      "line-height": "Altura de línea",
+      "reset": "Restablecer",
+      "close": "Cerrar"
     }
   }
