@@ -47,8 +47,8 @@ template.innerHTML = `
       </div>
       <slot name="option"></slot>
       <div part="buttons"> 
-        <input type="button" id="reset" value="Réinitialiser"/>
-        <input type="button" id="close" value="Terminer"/>
+        <input type="button" id="reset" value="Réinitialiser" part="reset-button"/>
+        <input type="button" id="close" value="Terminer" part="close-button"/>
       </div>
     </form>
   </details>

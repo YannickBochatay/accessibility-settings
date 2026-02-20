@@ -34,6 +34,8 @@
     &lt;access-settings all>&lt;/access-settings>
   &lt;/body>
 &lt;/html></code></pre>
+          Dans la plupart des cas vous pouvez vous arrêter là ! Mais si vous le souhaitez le composant est
+          entièrement configurable comme expliqué dans la suite de cette documentation.
       </section>
       <section>
         <h3>NPM</h3>
@@ -100,6 +102,35 @@
         <h3>lang</h3>
         <p>La langue est déterminée par l'attribut <code>lang</code> de l'élément racine html.</p>
         <p>Les langues disponibles sont <code>fr</code> et <code>en</code>.</p>
+      </section>
+    </section>
+    <section>
+      <h2>Personnalisation</h2>
+      <section id="position">
+        <h3>Position</h3>
+        <p>Vous pouvez définir le positionnement du composant.</p>
+<pre><code class="language-css">accessibility-settings {
+  position:fixed;
+  top:5px;
+  right:5px;
+}</code></pre>
+<p>Si l'attribute <code>side</code> est défini à <code>left</code>, il vous faudra
+définir la propriété css <code>left</code> plutôt que <code>right</code>.</p>
+        
+      </section>
+      <section id="icon">
+        <h3>Style de l'icône</h3>
+        Vous pouvez personnaliser le style de l'icône en css
+        <pre><code class="language-css">access-settings::part(icon) {
+  background-color: brown;
+  fill:white;
+}</code></pre>
+      </section>
+      <section id="slot-icon">
+        <h3>Changer d'icône</h3>
+        <pre><code class="language-html">&lt;access-settings all>
+  &lt;span slot="icon">⚙︎&lt;/span>
+&lt;/access-settings></code></pre>
       </section>
     </section>
   </main>

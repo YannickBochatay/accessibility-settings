@@ -17,19 +17,26 @@ function select(selected) {
     else section.classList.remove("selected");
   }
 }
+function reset() {
+  removeAttributes();
+  document.documentElement.lang = "fr";
+  access.open = true;
+  style.innerHTML = "";
+  while (access.firstElementChild) access.firstElementChild.remove()
+}
+
+const style = document.createElement("style");
+document.head.append(style)
 
 function handleIntersect(entries, observer) {
   entries.forEach(entry => {
     
     if (!entry.isIntersecting) return;
-    const { id } = entry.target;
 
     select(entry.target);
-    removeAttributes();
-    document.documentElement.lang = "fr";
-    access.open = true;
+    reset();
      
-    switch (id) {
+    switch (entry.target.id) {
       case "install":
         access.open = false;
         break;
@@ -72,6 +79,34 @@ function handleIntersect(entries, observer) {
       case "lang":
         access.setAttribute("all", "");
         document.documentElement.lang = "en";
+        break;
+      case "position":
+        access.setAttribute("all", "");
+        style.innerHTML = `
+          access-settings {
+            top:5px;
+            right:5px;
+          }
+        `
+        break;
+      case "icon":
+        access.setAttribute("all", "");
+        style.innerHTML = `
+          access-settings::part(icon) {
+            background-color: brown;
+            fill:white;
+          }
+        `
+        break;
+      case "slot-icon": {
+        access.setAttribute("all", "");
+        const icon = document.createElement("span");
+        icon.setAttribute("slot","icon");
+        icon.textContent = "⚙︎";
+        icon.style.fontSize = "2rem";
+        access.append(icon);
+        break;
+      }
     }
   });
 }

@@ -16,7 +16,7 @@
   }
   :root.dyslexic {
     font-family:var(--access-font-family);
-    body, header, footer, main, article, section, aside, p {
+    h1,h2,h3,h4,h5,h6, body, header, footer, main, article, section, aside, p {
       font-family:var(--access-font-family) !important;
     }
   }
@@ -294,6 +294,7 @@
 
       [part=buttons] {
         text-align:center;
+        margin:0 15px;
       }
     }
   }
@@ -347,8 +348,8 @@
       </div>
       <slot name="option"></slot>
       <div part="buttons"> 
-        <input type="button" id="reset" value="R\xE9initialiser"/>
-        <input type="button" id="close" value="Terminer"/>
+        <input type="button" id="reset" value="R\xE9initialiser" part="reset-button"/>
+        <input type="button" id="close" value="Terminer" part="close-button"/>
       </div>
     </form>
   </details>
@@ -400,14 +401,18 @@
       this.#fontSizeField.addEventListener("change", (e) => preferences.fontSize = e.target.value);
       this.#lineHeightField.addEventListener("change", (e) => preferences.lineHeight = e.target.value);
       root2.querySelector("#reset").addEventListener("click", resetPrefs);
-      root2.querySelector("#close").addEventListener("click", () => {
-        root2.querySelector("details").open = false;
-      });
+      root2.querySelector("#close").addEventListener("click", () => this.open = false);
       this.#observer = new MutationObserver((mutationList, observer) => {
         for (const mutation of mutationList) {
           if (mutation.attributeName === "lang") this.#handleLangChange();
         }
       });
+    }
+    get open() {
+      return this.shadowRoot.querySelector("details").open;
+    }
+    set open(value) {
+      this.shadowRoot.querySelector("details").open = value;
     }
     #handleStateChange = () => {
       this.#fontField.checked = preferences.dyslexicFont;
@@ -416,8 +421,13 @@
       this.#fontSizeField.value = preferences.fontSize;
       this.#lineHeightField.value = preferences.lineHeight;
     };
+    #parseLang() {
+      const attr = document.documentElement.lang;
+      if (!attr) return "en";
+      return /^(\w+)(-\w+){0,2}$/.exec(attr)?.[1] || "en";
+    }
     #handleLangChange() {
-      const lang = document.documentElement.lang || "en";
+      const lang = this.#parseLang();
       const { languages } = this.constructor;
       const locale = languages[lang] ?? languages.en;
       const labels = this.shadowRoot.querySelectorAll("label");
