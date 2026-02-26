@@ -18,6 +18,46 @@ const access = document.querySelector("access-settings");
 
 const sections = document.querySelectorAll("main section:not(:first-child) section[id]");
 
+function handleTableOfContentVisibility() {
+  tableOfContent.style.visibility = "hidden";
+  tableOfContent.open = true;
+  const width = tableOfContent.getBoundingClientRect().width;
+  const marginLeft = getComputedStyle(document.querySelector("main")).marginLeft;
+  const hasEnoughSpace = Number.parseInt(marginLeft) > width;
+
+  tableOfContent.open = hasEnoughSpace;
+  tableOfContent.classList[hasEnoughSpace ? "add" : "remove"]("extended");
+  tableOfContent.style.visibility = "visible";
+}
+
+function hasEnoughSpaceForComponent() {
+  const _open = access.open;
+  access.style.visibility = "hidden";
+  access.open = true;
+  const width = access.getBoundingClientRect().width;
+  const marginRight = getComputedStyle(document.querySelector("main")).marginRight;
+
+  access.open = _open;
+  access.style.visibility = "visible";
+
+  return Number.parseInt(marginRight) > width;
+}
+
+addEventListener("resize", handleTableOfContentVisibility);
+
+access.addEventListener("change", e => {
+  if (e.detail.prop === "fontSize") handleTableOfContentVisibility();
+})
+
+handleTableOfContentVisibility();
+
+function demoChange(e) {
+  const { prop, value, preferences } = e.detail;
+
+  alert(`Property ${prop} has changed to ${value}.
+  Preferences are now ${JSON.stringify(preferences, null, 2)}.`);
+}
+
 function removeAttributes() {
   const attrs = [...access.attributes]
   for (const attr of attrs) {
@@ -35,8 +75,8 @@ function reset() {
   document.documentElement.lang = "fr";
   style.innerHTML = "";
   while (access.firstElementChild) access.firstElementChild.remove();
-  tableOfContent.style.left = "5px";
-  tableOfContent.style.right = "unset";
+  access.removeEventListener("change", demoChange);
+  if (hasEnoughSpaceForComponent()) access.open = true;
 }
 
 const style = document.createElement("style");
@@ -52,11 +92,9 @@ function handleIntersect(entries, observer) {
      
     switch (entry.target.id) {
       case "install":
-        access.open = false;
         break;
       case "all":
         access.setAttribute("all", "");
-        access.open = true;
         break;
       case "dyslexic-font":
         access.setAttribute("dyslexic-font", "");
@@ -86,8 +124,6 @@ function handleIntersect(entries, observer) {
       case "side":
         access.setAttribute("all", "");
         access.setAttribute("side", "left");
-        tableOfContent.style.right = "5px";
-        tableOfContent.style.left = "unset";
         break;
       case "rounded":
         access.setAttribute("all", "");
@@ -150,6 +186,10 @@ function handleIntersect(entries, observer) {
         access.append(option)
         break;
       }
+      case "change":
+        access.setAttribute("all", "");
+        access.addEventListener("change", demoChange);
+        break;
     }
   });
 }

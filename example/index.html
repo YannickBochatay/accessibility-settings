@@ -17,16 +17,15 @@
 <body>
   <header>
     <h1>Composant &lt;access-settings&gt;</h1>
-  </header>
-  <details id="table-of-content">
-    <summary>☰</summary>
-    <nav>
-      <h2>Sommaire</h2>
-      <ul>
+    <details id="table-of-content">
+      <summary>☰</summary>
+      <nav>
+        <ul>
 
-      </ul>
-    </nav>
-  </details>
+        </ul>
+      </nav>
+    </details>
+  </header>
   <main>
     <section id="installation">
       <h2>Installation</h2>
@@ -184,6 +183,33 @@ définir la propriété css <code>left</code> plutôt que <code>right</code>.</p
         <pre><code class="language-js" tabindex="0">const input = document.querySelector("#custom-input");
 input.addEventListener("change", () => {
   if (input.checked) alert("nouvelle option cochée");
+})</code></pre>
+      </section>
+    </section>
+    <section id="evenements">
+      <h2>Evènements</h2>
+      <section id="change">
+        <h3>change</h3>
+        <p>Vous pouvez ajouter des écouteurs sur l'évènement <code>change</code>.</p>
+        <p>La propriété <code>detail</code> de l'évènement contient les propriétés :</p>
+          <ul>
+            <li>
+              <code>prop</code> : nom de la propriété modifiée
+            </li>
+            <li>
+              <code>value</code> : nouvelle valeur
+            </li>
+            <li>
+              <code>preferences</code> : valeurs actuelles de toutes les préférences
+            </li>
+          </ul>
+        <pre><code class="language-js" tabindex="0">const access = document.querySelector("access-settings");
+
+access.addEventListener("change", e => {
+  const { prop, value, preferences } = e.detail;
+
+  alert(`Property ${prop} has changed to ${value}.
+  Preferences are now ${JSON.stringify(preferences)}.`);
 })</code></pre>
       </section>
     </section>

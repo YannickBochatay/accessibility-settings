@@ -74,6 +74,18 @@ export class AccessSettings extends HTMLElement {
     });
   }
 
+  #triggerEvent(prop, value) {
+    const event = new CustomEvent("change", {
+      detail: {
+        prop,
+        value,
+        preferences
+      }
+    });
+
+    this.dispatchEvent(event);
+  }
+
   get open() {
     return this.shadowRoot.querySelector("details").open;
   }
@@ -82,12 +94,14 @@ export class AccessSettings extends HTMLElement {
     this.shadowRoot.querySelector("details").open = value;
   }
 
-  #handleStateChange = () => {
+  #handleStateChange = (prop, value) => {
     this.#fontField.checked = preferences.dyslexicFont;
     this.#colorsField.checked = preferences.invertedColors;
     this.#contrastField.value = preferences.contrast;
     this.#fontSizeField.value = preferences.fontSize;
     this.#lineHeightField.value = preferences.lineHeight;
+
+    if (prop) this.#triggerEvent(prop, value);
   }
 
   #parseLang() {
