@@ -26,24 +26,24 @@ template.innerHTML = `
     </summary>
     <form part="form">
       <div class="field" part="dyslexic-font">
-        <input type="checkbox" id="dyslexic-font">
-        <label for="dyslexic-font">Police dyslexie</label>
+        <input type="checkbox" id="dyslexic-font" part="dyslexic-font-input">
+        <label for="dyslexic-font" part="dyslexic-font-label">Police dyslexie</label>
       </div>
       <div class="field" part="invert-colors">
-        <input type="checkbox" id="inverted-colors">
-        <label for="inverted-colors">Couleurs inversées</label>
+        <input type="checkbox" id="inverted-colors" part="invert-colors-input">
+        <label for="inverted-colors" part="invert-colors-label">Couleurs inversées</label>
       </div>
       <div class="field" part="contrast">
-        <input type="number" step="10" id="contrast" min="50" max="150">
-        <label for="contrast">Contraste</label>
+        <input type="number" step="10" id="contrast" min="50" max="150" part="contrast-input">
+        <label for="contrast" part="contrast-label">Contraste</label>
       </div>
       <div class="field" part="font-size">
-        <input type="number" id="font-size">
-        <label for="font-size">Taille de police</label>
+        <input type="number" id="font-size" part="font-size-input">
+        <label for="font-size" part="font-size-label">Taille de police</label>
       </div>
       <div class="field" part="line-height">
-        <input type="number" id="line-height" step="0.1">
-        <label for="line-height">Interligne</label>
+        <input type="number" id="line-height" step="0.1" part="line-height-input">
+        <label for="line-height" part="line-height-label">Interligne</label>
       </div>
       <slot name="option"></slot>
       <div part="buttons"> 

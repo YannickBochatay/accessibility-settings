@@ -5,7 +5,6 @@ html {
   --copy: #252329;
   --link: rgb(1, 88, 135);
 
-
   font-family: system-ui, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, Helvetica, Arial, "Helvetica Neue", sans-serif;
   font-size:16px;
   line-height:1.5;
@@ -52,3 +51,6 @@ code {
   background-color:var(--foreground);
 }
 
+#styles ul {
+  padding-left:1.5rem;
+}

@@ -1,8 +1,8 @@
 # access-settings
 Web component for accessibility settings
 
-## Demo
-https://yannickbochatay.github.io/access-settings/example
+## Demo and documentation
+https://yannickbochatay.github.io/access-settings/doc
 
 ![screenshot of component](./screenshot.png)
 

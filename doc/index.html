@@ -9,8 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-light.min.css">
   <link rel="stylesheet" href="styles.css">
   <script src="../src/index.js" type="module"></script>
-  <script src="components/table-of-content.js" type="module"></script>
-  <script src="components/bookmarklet.js" type="module"></script>
+  <script src="components/index.js" type="module"></script>
   <script src="script.js" type="module"></script>
   <title>Access Settings</title>
 </head>
@@ -196,6 +195,62 @@ définir la propriété css <code>left</code> plutôt que <code>right</code>.</p
         <pre><code class="language-html" tabindex="0">&lt;access-settings all>
   &lt;span slot="icon">⚙︎&lt;/span>
 &lt;/access-settings></code></pre>
+      </section>
+
+      <section id="styles">
+        <h3>Style des éléments</h3>
+        <p>Les pseudo-classes
+          <a href="https://developer.mozilla.org/fr/docs/Web/CSS/Reference/Selectors/::part">
+            <code>::part</code>
+          </a>
+          suivantes vous permettent de personnaliser entièrement le style du composant :
+        </p>
+        <ul>
+          <li><strong>details</strong> : élément html <code>&lt;details></code> global
+            <ul>
+              <li><strong>summary</strong> : élément html <code>&lt;summary></code>
+                <ul>
+                  <li><strong>icon</strong> : icône <code>&lt;svg></code></li>
+                </ul>
+              </li>
+              <li>
+                <strong>form</strong> : élément html <code>&lt;form></code>
+                <ul>
+                  <li>
+                    <part-descript
+                      field-name="dyslexic-font"
+                      field-descript="police dyslexie">
+                    </part-descript>
+                  </li>
+                  <li>
+                    <part-descript
+                      field-name="invert-colors"
+                      field-descript="inversion des couleurs">
+                    </part-descript>
+                  </li>
+                  <li>
+                    <part-descript
+                      field-name="contrast"
+                      field-descript="contraste">
+                    </part-descript>
+                  </li>
+                  <li>
+                    <part-descript
+                      field-name="font-size"
+                      field-descript="taille de police">
+                    </part-descript>
+                  </li>
+                  <li>
+                    <part-descript
+                      field-name="line height"
+                      field-descript="hauteur de ligne">
+                    </part-descript>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
       </section>
 
       <section id="add-option">
