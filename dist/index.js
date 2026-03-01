@@ -116,14 +116,7 @@
   var root = document.documentElement;
   function getInitialFontSize(elmt = root) {
     let fontSize = getComputedStyle(elmt).fontSize;
-    let value = Number.parseInt(fontSize);
-    if (Number.isNaN(value) && elmt === root) {
-      let p = document.createElement("p");
-      document.body.appendChild(p);
-      value = getInitialFontSize(p);
-      p.remove();
-    }
-    return value;
+    return Number.parseInt(fontSize);
   }
   function getInitialLineHeight(elmt = root) {
     let lineHeight = getComputedStyle(elmt).lineHeight;
@@ -141,7 +134,7 @@
         p.remove();
         return lineHeight2;
       } else {
-        return elmt.getBoundingClientRect().height;
+        value = elmt.getBoundingClientRect().height;
       }
     }
     return Math.round(value * 10 / getInitialFontSize()) / 10;
