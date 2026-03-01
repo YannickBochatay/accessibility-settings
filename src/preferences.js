@@ -2,21 +2,12 @@ import { createState } from "./createState.js";
 
 const root = document.documentElement;
 
-function getInitialFontSize(elmt = root) {
+export function getInitialFontSize(elmt = root) {
   let fontSize = getComputedStyle(elmt).fontSize;
-  let value = Number.parseInt(fontSize);
-
-  if (Number.isNaN(value) && elmt === root) {
-    let p = document.createElement("p");
-    document.body.appendChild(p);
-    value = getInitialFontSize(p);
-    p.remove();
-  }
-
-  return value;
+  return Number.parseInt(fontSize);
 }
 
-function getInitialLineHeight(elmt = root) {
+export function getInitialLineHeight(elmt = root) {
   let lineHeight = getComputedStyle(elmt).lineHeight;
 
   if (!isNaN(lineHeight)) return Number(lineHeight);
@@ -35,7 +26,7 @@ function getInitialLineHeight(elmt = root) {
       p.remove();
       return lineHeight;
     } else {
-      return elmt.getBoundingClientRect().height;
+      value = elmt.getBoundingClientRect().height;
     }
   }
 
