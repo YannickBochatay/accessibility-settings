@@ -27,6 +27,7 @@ import "./globalStyles.js"
 import { preferences, resetPrefs, onStateChange, offStateChange } from "./preferences.js"
 import { template } from "./template.js"
 import languages from "./languages.json" with { type: "json" };
+import { removeConfig } from "./localStorage.js";
 
 export class AccessSettings extends HTMLElement {
 
@@ -64,7 +65,10 @@ export class AccessSettings extends HTMLElement {
     this.#fontSizeField.addEventListener("change", e => preferences.fontSize = e.target.value);
     this.#lineHeightField.addEventListener("change", e => preferences.lineHeight = e.target.value);
 
-    root.querySelector("#reset").addEventListener("click", resetPrefs);
+    root.querySelector("#reset").addEventListener("click", () => {
+      resetPrefs();
+      removeConfig();
+    });
     root.querySelector("#close").addEventListener("click", () => this.open = false);
 
     this.#observer = new MutationObserver((mutationList, observer) => {

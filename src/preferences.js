@@ -74,22 +74,5 @@ export function resetPrefs() {
   for (let key in defaultPrefs) {
     preferences[key] = defaultPrefs[key];
     root.classList.remove("fontSize", "lineHeight", "contrasted");
-    localStorage.removeItem(STORAGE_NAME);
-  }
-}
-
-const STORAGE_NAME = "preferences"
-
-onStateChange(() => {
-  localStorage.setItem(STORAGE_NAME, JSON.stringify(preferences));
-})
-
-const storedData = localStorage.getItem(STORAGE_NAME);
-
-if (storedData) {
-  const data = JSON.parse(storedData);
-
-  for (let key in data) {
-    preferences[key] = data[key];
   }
 }

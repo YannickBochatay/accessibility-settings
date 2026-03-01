@@ -176,18 +176,6 @@
     for (let key in defaultPrefs) {
       preferences[key] = defaultPrefs[key];
       root.classList.remove("fontSize", "lineHeight", "contrasted");
-      localStorage.removeItem(STORAGE_NAME);
-    }
-  }
-  var STORAGE_NAME = "preferences";
-  onStateChange(() => {
-    localStorage.setItem(STORAGE_NAME, JSON.stringify(preferences));
-  });
-  var storedData = localStorage.getItem(STORAGE_NAME);
-  if (storedData) {
-    const data = JSON.parse(storedData);
-    for (let key in data) {
-      preferences[key] = data[key];
     }
   }
 
@@ -395,6 +383,26 @@
     }
   };
 
+  // src/localStorage.js
+  var STORAGE_NAME = "preferences";
+  function saveConfig() {
+    localStorage.setItem(STORAGE_NAME, JSON.stringify(preferences));
+  }
+  function loadConfig() {
+    const storedData = localStorage.getItem(STORAGE_NAME);
+    const data = storedData ? JSON.parse(storedData) : null;
+    if (data) {
+      for (let key in data) {
+        if (data[key] !== preferences[key]) preferences[key] = data[key];
+      }
+    }
+  }
+  function removeConfig() {
+    localStorage.removeItem(STORAGE_NAME);
+  }
+  onStateChange(saveConfig);
+  loadConfig();
+
   // src/index.js
   var AccessSettings = class extends HTMLElement {
     static languages = new Proxy(languages_default, {
@@ -426,7 +434,10 @@
       this.#contrastField.addEventListener("change", (e) => preferences.contrast = e.target.value);
       this.#fontSizeField.addEventListener("change", (e) => preferences.fontSize = e.target.value);
       this.#lineHeightField.addEventListener("change", (e) => preferences.lineHeight = e.target.value);
-      root2.querySelector("#reset").addEventListener("click", resetPrefs);
+      root2.querySelector("#reset").addEventListener("click", () => {
+        resetPrefs();
+        removeConfig();
+      });
       root2.querySelector("#close").addEventListener("click", () => this.open = false);
       this.#observer = new MutationObserver((mutationList, observer) => {
         for (const mutation of mutationList) {
