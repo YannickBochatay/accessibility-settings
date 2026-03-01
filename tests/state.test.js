@@ -1,10 +1,18 @@
-import { preferences, getInitialFontSize, getInitialLineHeight } from "../src/preferences.js";
+import { preferences, getInitialFontSize, getInitialLineHeight, resetPrefs } from "../src/preferences.js";
 import "../src/globalStyles.js";
 
-QUnit.module('initial state', () => {
+QUnit.module('initial state', hooks => {
 
-  const style = document.createElement("style");
-  document.head.append(style);
+  let style
+
+  hooks.before(() => {
+    style = document.createElement("style");
+    document.head.append(style);
+  });
+
+  hooks.beforeEach(resetPrefs);
+
+  hooks.after(() => style.remove());
 
   QUnit.test('initial font-size', assert => {
 
@@ -35,10 +43,12 @@ QUnit.module('initial state', () => {
   })
 });
 
-QUnit.module('change state', () => {
+QUnit.module('change state', hooks => {
 
   const root = document.documentElement;
   const style = getComputedStyle(root);
+
+  hooks.before(resetPrefs);
 
   QUnit.test("change font", assert => {
     assert.strictEqual(root.classList.contains("dyslexic"), false);

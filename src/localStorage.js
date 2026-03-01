@@ -15,6 +15,8 @@ export function loadConfig() {
       if (data[key] !== preferences[key]) preferences[key] = data[key];
     }
   }
+
+  return data;
 }
 
 export function removeConfig() {

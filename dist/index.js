@@ -396,6 +396,7 @@
         if (data[key] !== preferences[key]) preferences[key] = data[key];
       }
     }
+    return data;
   }
   function removeConfig() {
     localStorage.removeItem(STORAGE_NAME);
@@ -431,15 +432,15 @@
       this.#lineHeightField = root2.querySelector("#line-height");
       this.#fontField.addEventListener("change", (e) => preferences.dyslexicFont = e.target.checked);
       this.#colorsField.addEventListener("change", (e) => preferences.invertedColors = e.target.checked);
-      this.#contrastField.addEventListener("change", (e) => preferences.contrast = e.target.value);
-      this.#fontSizeField.addEventListener("change", (e) => preferences.fontSize = e.target.value);
-      this.#lineHeightField.addEventListener("change", (e) => preferences.lineHeight = e.target.value);
+      this.#contrastField.addEventListener("change", (e) => preferences.contrast = Number(e.target.value));
+      this.#fontSizeField.addEventListener("change", (e) => preferences.fontSize = Number(e.target.value));
+      this.#lineHeightField.addEventListener("change", (e) => preferences.lineHeight = Number(e.target.value));
       root2.querySelector("#reset").addEventListener("click", () => {
         resetPrefs();
         removeConfig();
       });
       root2.querySelector("#close").addEventListener("click", () => this.open = false);
-      this.#observer = new MutationObserver((mutationList, observer) => {
+      this.#observer = new MutationObserver((mutationList) => {
         for (const mutation of mutationList) {
           if (mutation.attributeName === "lang") this.handleLangChange();
         }
@@ -464,9 +465,9 @@
     #handleStateChange = (prop, value) => {
       this.#fontField.checked = preferences.dyslexicFont;
       this.#colorsField.checked = preferences.invertedColors;
-      this.#contrastField.value = preferences.contrast;
-      this.#fontSizeField.value = preferences.fontSize;
-      this.#lineHeightField.value = preferences.lineHeight;
+      this.#contrastField.value = String(preferences.contrast);
+      this.#fontSizeField.value = String(preferences.fontSize);
+      this.#lineHeightField.value = String(preferences.lineHeight);
       if (prop) this.#triggerEvent(prop, value);
     };
     #parseLang() {
