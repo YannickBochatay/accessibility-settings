@@ -1,6 +1,7 @@
 function addAccessSettings() {
   import('https://cdn.jsdelivr.net/npm/access-settings')
     .then(() => {
+      if (document.querySelector('access-settings')) return;
       const node = document.createElement('access-settings');
       node.setAttribute('all','');
       node.setAttribute('important','');
