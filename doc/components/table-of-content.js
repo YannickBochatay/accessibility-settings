@@ -67,24 +67,44 @@ template.innerHTML = `
 
 class TableOfContent extends HTMLElement {
 
+  #observer
+
   constructor() {
     super();
     this.append(template.content.cloneNode(true))
+
+    this.#observer = new MutationObserver(mutationList => {
+      for (const mutation of mutationList) {
+        if (mutation.attributeName === 'lang') this.#updateContent();
+      }
+    });
   }
 
-  #addItems(level, sections, parent) {
-    for (const section of sections) {
-      const li = document.createElement("li");
-      const a = document.createElement("a");
+  #updateContent() {
+    const sections = document.querySelectorAll("section[id]:has(h2)");
+    const mainUl = document.querySelector("details nav ul");
+    this.#updateItems(2, sections, mainUl);
+  }
+
+  #updateItems(level, sections, parent) {
+    const lang = document.documentElement.lang;
+
+    for (const [index, section] of sections.entries()) {
+      const li = parent.children[index] ?? document.createElement("li");
+      
+      const a = li.firstElementChild ?? document.createElement("a");
       a.href = "#" + section.id;
-      a.textContent = section.querySelector(`h${level}`).textContent;
-      li.append(a);
-      parent.append(li);
+      a.textContent = section.querySelector(`h${level}:lang(${lang})`).textContent;
+      if (!a.parentNode) li.append(a);
+      
+      if (!li.parentNode) parent.append(li);
+      
       const subSections = section.querySelectorAll(`section[id]:has(h${level+1})`)
+      
       if (subSections?.length) {
-        const ul = document.createElement("ul");
-        li.append(ul)
-        this.#addItems(level + 1, subSections, ul);
+        const ul = li.querySelector("ul") ?? document.createElement("ul");
+        if (!ul.parentNode) li.append(ul)
+        this.#updateItems(level + 1, subSections, ul);
       }
     }
   }
@@ -103,15 +123,15 @@ class TableOfContent extends HTMLElement {
   }
 
   connectedCallback() {
-    const sections = document.querySelectorAll("section[id]:has(h2)");
-    const mainUl = document.querySelector("details nav ul");
-    this.#addItems(2, sections, mainUl);
+    this.#updateContent();
     this.handleVisibility();
     window.addEventListener("resize", this.handleVisibility);
+    this.#observer.observe( document.documentElement, { attributes: true });
   }
 
   disconnectedCallback() {
     window.removeEventListener("resize", this.handleVisibility);
+    this.#observer.disconnect();
   }
 }
 

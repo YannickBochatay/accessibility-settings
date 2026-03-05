@@ -14,6 +14,11 @@ html {
   padding:0;
   margin:0;
 }
+html:lang(fr) *[lang]:not(:lang(fr)),
+html:lang(en) *[lang]:not(:lang(en))
+{
+  display:none;
+}
 body {
   padding:0;
   margin:0;

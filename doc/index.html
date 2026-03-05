@@ -18,43 +18,73 @@
 </head>
 
 <body>
+
   <header>
-    <h1>&lt;access-settings&gt;</h1>
+    <h1>&lt;access-settings&gt;<lang-select></lang-select></h1>
     <table-of-content></table-of-content>
   </header>
+
   <main>
     <section id="demarrage">
-      <h2>Démarrage rapide</h2>
+      <h2 lang="fr">Démarrage rapide</h2>
+      <h2 lang="en">Quick start</h2>
       <section id="developpeur">
-        <h3>Développeur-se</h3>
-        <p>Ajouter l'appel du script dans la balise <code>&lt;head></code> de votre page html : </p>
+        <h3 lang="fr">Développeur-se</h3>
+        <h3 lang="en">Developer</h3>
+        
+        <p lang="fr">Ajouter l'appel du script dans la balise <code>&lt;head></code> de votre page html : </p>
+        <p lang="en">Add the script call in the tag <code>&lt;head></code> from your html page : </p>
+
         <pre><code class="language-html" tabindex="0">&lt;script
   src="https://cdn.jsdelivr.net/npm/access-settings"
   type="module"
 >&lt;/script></code></pre>
-        <p>Puis insérer le composant en fin de balise <code>&lt;body></code> :</p>
+
+        <p lang="fr">Puis insérer le composant en fin de balise <code>&lt;body></code> :</p>
+        <p lang="en">Then insert the component at the end of the tag <code>&lt;body></code> :</p>
+
         <pre><code class="language-html" tabindex="0">&lt;access-settings all>&lt;/access-settings></code></pre>
-        <p>Et le tour est joué ! Pour une utilisation plus avancée,
+
+        <p lang="fr">Et le tour est joué ! Pour une utilisation plus avancée,
           vous pouvez parcourir la suite de cette documentation.</p>
+        <p lang="en">And it's all done! For more advanced use, You can browse the rest of this documentation.</p>
+
       </section>
+
       <section id="internaute">
-        <h3>Internaute <sup>(βeta)</sup></h3>
-        <p>Vous pouvez utiliser le composant <code>&lt;access-settings></code>
+        <h3 lang="fr">Internaute <sup>(βeta)</sup></h3>
+        <h3 lang="en">Internet user <sup>(βeta)</sup></h3>
+
+        <p lang="fr">Vous pouvez utiliser le composant <code>&lt;access-settings></code>
         en tant que <a href="https://fr.wikipedia.org/wiki/Bookmarklet">bookmarklet</a>.</p>
-        <p>Pour cela, faites glisser le bouton suivant jusqu'à votre barre de favoris :</p>
+        <p lang="en">You can use the component <code>&lt;access-settings></code>
+        as a <a href="https://fr.wikipedia.org/wiki/Bookmarklet">bookmarklet</a>.</p>
+
+        <p lang="fr">Pour cela, faites glisser le bouton suivant jusqu'à votre barre de favoris :</p>
+        <p lang="en">To do this, drag the following button to your favorites bar :</p>
+
         <bookmarklet-me></bookmarklet-me>
-        <p>Sur n'importe quelle page web, vous pourrez cliquer sur ce favori pour configuer vos préférences
-          d'accessibilité.
-        </p>
-        <p><strong>Avertissement</strong> : selon la politique de sécurité de la page visitée ainsi
+        
+        <p lang="fr">Sur n'importe quelle page web, vous pourrez cliquer sur ce favori pour configuer vos préférences d'accessibilité.</p>
+        <p lang="en">On any web page, you can click on this favorite to configure your preferences of accessibility.</p>
+
+        <p lang="fr"><strong>Avertissement</strong> : selon la politique de sécurité de la page visitée ainsi
         que la qualité du code css, il se peut que le composant ne puisse pas se charger ou ne fonctionne pas correctement.</p>
+        <p lang="en"><strong>Warning</strong> : according to the security policy of the page visited as well
+          that the quality of the css code, it may be that the component cannot load or work properly.</p>
+
       </section>
     </section>
     <section id="installation">
-      <h2>Types d'installation</h2>
+      <h2 lang="fr">Types d'installation</h2>
+      <h2 lang="en">Installation</h2>
+      
       <section id="cdn">
         <h3>CDN</h3>
-        Comme indiqué plus haut, l'utilisation d'un serveur CDN est la façon la plus simple et la plus rapide d'installer le composant.
+        
+        <p lang="fr">Comme indiqué plus haut, l'utilisation d'un serveur CDN est la façon la plus simple et la plus rapide d'installer le composant.</p>
+        <p lang="en">As mentioned above, using a CDN server is the easiest and fastest way to install the component.</p>
+
         <pre><code class="language-html" tabindex="0">&lt;!DOCTYPE html>
 &lt;html lang="fr">
   &lt;head>
@@ -71,89 +101,144 @@
   &lt;/body>
 &lt;/html></code></pre>
       </section>
+
       <section id="npm">
         <h3>NPM</h3>
-        Vous pouvez aussi installer le composant par NPM.
+        
+        <p lang="fr">Vous pouvez aussi installer le composant par NPM.</p>
+        <p lang="en">You can also install the component by NPM.</p>
+
         <pre><code class="language-sh" tabindex="0">npm install access-settings</code></pre>
         <pre><code class="language-html" tabindex="0">&lt;script src="node_modules/access-settings/dist/index.js">&lt;/script></code></pre>
       </section>
+
       <section id="direct-download">
-        <h3>Téléchargement direct</h3>
-        Ou encore télécharger directement le <a href="https://raw.githubusercontent.com/YannickBochatay/access-settings/refs/heads/main/dist/index.js">fichier sur GitHub</a>.
+        <h3 lang="fr">Téléchargement direct</h3>
+        <h3 lang="en">Direct download</h3>
+
+        <p lang="fr">Ou encore télécharger directement le <a href="https://raw.githubusercontent.com/YannickBochatay/access-settings/refs/heads/main/dist/index.js">fichier sur GitHub</a>.</p>
+        <p lang="en">Or download directly the <a href="https://raw.githubusercontent.com/YannickBochatay/access-settings/refs/heads/main/dist/index.js">file on GitHub</a>.</p>
       </section>
     </section>
+
     <section id="utilisation">
-      <h2>Options d'utilisation</h2>
+
+      <h2 lang="fr">Options d'utilisation</h2>
+      <h2 lang="en">Options</h2>
+
       <section id="all">
         <h3>all</h3>
-      <p>Pour afficher toutes les options, utiliser l'attribut <code>all</code>.</p>
-      <pre><code class="language-html" tabindex="0">&lt;access-settings all>&lt;/access-settings></code></pre>
+        <p lang="fr">Pour afficher toutes les options, utiliser l'attribut <code>all</code>.</p>
+        <p lang="en">To display all options, use the attribute <code>all</code>.</p>
+
+        <pre><code class="language-html" tabindex="0">&lt;access-settings all>&lt;/access-settings></code></pre>
       </section>
+
       <section id="dyslexic-font">
         <h3>dyslexic-font</h3>
-        <p>Pour activer l'option police dyslexie, utiliser l'attribut <code>dyslexic-font</code>.</p>
-        <p>La police utilisée est <a href="https://opendyslexic.org/">Open Dyslexic</a> depuis le serveur <a href="https://www.cdnfonts.com">CDN|Fonts</a>.</p>
+        <p lang="fr">Pour activer l'option police dyslexie, utiliser l'attribut <code>dyslexic-font</code>.</p>
+        <p lang="en">To activate the dyslexia font option, use the attribute <code>dyslexic-font</code>.</p>
+
+        <p lang="fr">La police utilisée est <a href="https://opendyslexic.org/">Open Dyslexic</a> depuis le serveur <a href="https://www.cdnfonts.com">CDN|Fonts</a>.</p>
+        <p lang="en">The font used is <a href="https://opendyslexic.org/">Open Dyslexic</a> from the <a href="https://www.cdnfonts.com">CDN|Fonts</a> server.</p>
+
         <pre><code class="language-html" tabindex="0">&lt;access-settings dyslexic-font>
 &lt;/access-settings></code></pre>
       </section>
+
       <section id="invert-colors">
         <h3>invert-colors</h3>
-        <p>Pour activer l'option d'inversion des couleurs, utiliser l'attribut <code>invert-colors</code>.</p>
+        <p lang="fr">Pour activer l'option d'inversion des couleurs, utiliser l'attribut <code>invert-colors</code>.</p>
+        <p lang="en">To enable the color inversion option, use the attribute <code>invert-colors</code>.</p>
+
         <pre><code class="language-html" tabindex="0">&lt;access-settings invert-colors>
 &lt;/access-settings></code></pre>
       </section>
+
       <section id="contrast">
         <h3>contrast</h3>
-        <p>Pour activer le réglage du contraste, utiliser l'attribut <code>contrast</code>.</p>
+        <p lang="fr">Pour activer le réglage du contraste, utiliser l'attribut <code>contrast</code>.</p>
+        <p lang="en">To enable contrast setting, use the attribute <code>contrast</code>.</p>
+
         <pre><code class="language-html" tabindex="0">&lt;access-settings contrast>
 &lt;/access-settings></code></pre>
       </section>
+
       <section id="font-size">
         <h3>font-size</h3>
-        <p>Pour activer le réglage de la taille du texte, utiliser l'attribut <code>font-size</code>.</p>
+        <p lang="fr">Pour activer le réglage de la taille du texte, utiliser l'attribut <code>font-size</code>.</p>
+        <p lang="en">To enable text size setting, use the attribute <code>font-size</code>.</p>
+
         <pre><code class="language-html" tabindex="0">&lt;access-settings font-size>
 &lt;/access-settings></code></pre>
       </section>
+
       <section id="line-height">
         <h3>line-height</h3>
-        <p>Pour activer le réglage de la hauteur de ligne, utiliser l'attribut <code>line-height</code>.</p>
+        <p lang="fr">Pour activer le réglage de la hauteur de ligne, utiliser l'attribut <code>line-height</code>.</p>
+        <p lang="en">To enable line height setting, use the attribute <code>line-height</code>.</p>
+        
         <pre><code class="language-html" tabindex="0">&lt;access-settings line-height>
 &lt;/access-settings></code></pre>
       </section>
+      
       <section id="combinaison">
-        <h3>combinaison</h3>
-        <p>Vous pouvez bien sûr utiliser une combinaison de ces options.</p>
+        <h3 lang="fr">combinaison</h3>
+        <h3 lang="en">combination</h3>
+        <p lang="fr">Vous pouvez bien sûr combiner ces options.</p>
+        <p lang="en">You can of course combine these options.</p>
+
         <pre><code class="language-html" tabindex="0">&lt;access-settings contrast font-size line-height>
 &lt;/access-settings></code></pre>
       </section>
+
       <section id="side">
         <h3>side="left"</h3>
-        <p>Par défaut le composant est placé sur le bord droit de l'écran. Pour le positionner à gauche,
+        <p lang="fr">Par défaut le composant est placé sur le bord droit de l'écran. Pour le positionner à gauche,
           utiliser l'attribut <code>side="left"</code>
         </p>
+        <p lang="en">By default the component is placed on the right edge of the screen. To position it on the left,
+          use the attribute <code>side="left"</code>
+        </p>
+
         <pre><code class="language-html" tabindex="0">&lt;access-settings all side="left">
 &lt;/access-settings></code></pre>
       </section>
+
       <section id="rounded">
         <h3>rounded</h3>
-        <p>Pour que le contour de l'icône soit arrondi, utiliser l'attribut <code>rounded</code></p>
+        <p lang="fr">Pour que le contour de l'icône soit arrondi, utiliser l'attribut <code>rounded</code></p>
+        <p lang="en">To round the icon outline, use the attribute <code>rounded</code></p>
+
         <pre><code class="language-html" tabindex="0">&lt;access-settings all rounded></code></pre>
       </section>
+
       <section id="lang">
         <h3>lang</h3>
-        <p>La langue est déterminée par l'attribut <code>lang</code> de l'élément racine html.</p>
-        <p>Les langues disponibles sont français (<code>fr</code>), anglais (<code>en</code>) et espagnol (<code>es</code>).</p>
+        <p lang="fr">La langue est déterminée par l'attribut <code>lang</code> de l'élément racine html.</p>
+        <p lang="en">Language is determined by the attribute <code>lang</code> of the root element html.</p>
+
+        <p lang="fr">Les langues disponibles sont français (<code>fr</code>), anglais (<code>en</code>) et espagnol (<code>es</code>).</p>
+        <p lang="en">Available languages are French (<code>fr</code>), English (<code>en</code>) and Spanish (<code>es</code>).</p>
       </section>
+
       <section id="important">
         <h3>important</h3>
-        <p>Pour outrepasser les règles css existantes, ajouter l'attribut <code>important</code>.</p>
-        <p>Attention, cette méthode n'est pas conseillée, elle permet juste le bon fonctionnement
+        <p lang="fr">Pour outrepasser les règles css existantes, ajouter l'attribut <code>important</code>.</p>
+        <p lang="en">To override existing css rules, add the attribute <code>important</code>.</p>
+
+        <p lang="fr">Attention, cette méthode n'est pas conseillée, elle permet juste le bon fonctionnement
           du composant dans le cas où le css existant ne suit pas les bonnes pratiques et est difficilement
           modifiable.
         </p>
+        <p lang="en">Please note that this method is not recommended. It simply allows the component to function
+          properly in cases where the existing CSS does not follow best practices and is difficult to modify. 
+        </p>
+
         <pre><code class="language-html" tabindex="0">&lt;access-settings all important></code></pre>
       </section>
     </section>
+
     <section id="personnalisation">
       <h2>Personnalisation</h2>
       <section id="add-lang">
