@@ -20,9 +20,14 @@
 <body>
 
   <header>
-    <h1>&lt;access-settings&gt;<lang-select></lang-select></h1>
-    <table-of-content></table-of-content>
+    <h1>
+      &lt;access-settings&gt;
+    </h1>
+    <lang-select></lang-select>
+    <github-link></github-link>
   </header>
+
+  <table-of-content></table-of-content>
 
   <main>
     <section id="demarrage">
@@ -215,8 +220,12 @@
 
       <section id="lang">
         <h3>lang</h3>
-        <p lang="fr">La langue est déterminée par l'attribut <code>lang</code> de l'élément racine html.</p>
-        <p lang="en">Language is determined by the attribute <code>lang</code> of the root element html.</p>
+        <p lang="fr">La langue par défaut est déterminée par l'attribut <code>lang</code> de l'élément racine html.
+        Vous pouvez la surcharger en définissant un attribut <code>lang</code> sur le composant.</p>
+        <p lang="en">Default language is determined by the attribute <code>lang</code> of the root element html.
+        You can override it by setting a <code>lang</code> attribute to the component.</p>
+
+        <pre><code class="language-html" tabindex="0">&lt;access-settings all lang="es"></code></pre>
 
         <p lang="fr">Les langues disponibles sont français (<code>fr</code>), anglais (<code>en</code>) et espagnol (<code>es</code>).</p>
         <p lang="en">Available languages are French (<code>fr</code>), English (<code>en</code>) and Spanish (<code>es</code>).</p>

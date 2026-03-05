@@ -4,7 +4,6 @@ style.innerHTML = /*css*/`
   lang-select select {
     font-size:1rem;
     padding:0.3rem 0.6rem;
-    vertical-align:middle;
 
     option::after {
       content:"🇫🇷";

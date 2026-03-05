@@ -2,7 +2,7 @@ const style = document.createElement("style");
 
 style.innerHTML = /*css*/ `
   #table-of-content {
-    position:absolute;
+    position:fixed;
     left:5px;
     top:0.5rem;
     &.right {
