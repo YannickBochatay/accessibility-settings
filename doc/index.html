@@ -81,6 +81,29 @@
           that the quality of the css code, it may be that the component cannot load or work properly.</p>
 
       </section>
+
+      <section id="api">
+        <h3 lang="fr">En tant qu'API</h3>
+        <h3 lang="en">As an API</h3>
+
+        <p lang="fr">Vous pouvez aussi utiliser la bibliothèque <code>&lt;access-settings></code> en tant qu'API
+        pour la fondre entièrement dans votre interfacce.</p>
+        <pre><code class="language-js" tabindex="0">import { settings } from "https://cdn.jsdelivr.net/npm/access-settings";
+
+settings.dyslexicFont = true;
+settings.invertedColors = false;
+settings.contrast = 110;
+settings.fontSize = 18;
+settings.lineHeight = 1.6;
+
+function handleChange(prop, value) {
+  console.log(`property ${prop} has changed to ${value}`);
+}
+
+settings.addListener(handleChange);
+settings.reset();
+settings.removeListener(handleChange);</code></pre>
+      </section>
     </section>
     <section id="installation">
       <h2 lang="fr">Types d'installation</h2>
@@ -251,10 +274,16 @@
     </section>
 
     <section id="personnalisation">
-      <h2>Personnalisation</h2>
+      <h2 lang="fr">Personnalisation</h2>
+      <h2 lang="en">Personalization</h2>
+
       <section id="add-lang">
-        <h3>Ajouter une langue</h3>
-        <p>Vous pouvez ajouter la langue de votre choix de la façon suivante.</p>
+        <h3 lang="fr">Ajouter une langue</h3>
+        <h3 lang="en">Add a language</h3>
+
+        <p lang="fr">Vous pouvez ajouter la langue de votre choix de la façon suivante.</p>
+        <p lang="en">You can add the language of your choice as follows.</p>
+
         <pre><code class="language-html" tabindex="0">&lt;!DOCTYPE html>
 &lt;html lang="oc"></code></pre>
         <pre><code class="language-js" tabindex="0">import { AccessSettings } from "https://cdn.jsdelivr.net/npm/access-settings";
@@ -269,40 +298,57 @@ AccessSettings.languages.oc = {
   "close": "Tampar"
 };</code></pre>
       </section>
+
       <section id="position">
         <h3>Position</h3>
-        <p>Vous pouvez définir le positionnement du composant.</p>
-<pre><code class="language-css" tabindex="0">accessibility-settings {
+
+        <p lang="fr">Vous pouvez définir le positionnement du composant.</p>
+        <p lang="en">You can define the positioning of the component.</p>
+        <pre><code class="language-css" tabindex="0">accessibility-settings {
   position:fixed;
   top:5px;
   right:5px;
 }</code></pre>
-<p>Si l'attribute <code>side</code> est défini à <code>left</code>, il vous faudra
+        <p lang="fr">Si l'attribut <code>side</code> est défini à <code>left</code>, il vous faudra
 définir la propriété css <code>left</code> plutôt que <code>right</code>.</p>
-        
+        <p lang="en">If the attribute <code>side</code> is defined to <code>left</code>,
+        you will need define the css property <code>left</code> rather than <code>right</code>.</p>
+
       </section>
+
       <section id="icon">
-        <h3>Style de l'icône</h3>
-        Vous pouvez personnaliser le style de l'icône en css
+        <h3 lang="fr">Style de l'icône</h3>
+        <h3 lang="en">Icon style</h3>
+
+        <p lang="fr">Vous pouvez personnaliser le style de l'icône en css</p>
+        <p lang="en">You can customize the icon style in css</p>
         <pre><code class="language-css" tabindex="0">access-settings::part(icon) {
   background-color: brown;
   fill:white;
 }</code></pre>
       </section>
       <section id="slot-icon">
-        <h3>Changer d'icône</h3>
+        <h3 lang="fr">Changer d'icône</h3>
+        <h3 lang="en">Change icon</h3>
         <pre><code class="language-html" tabindex="0">&lt;access-settings all>
   &lt;span slot="icon">⚙︎&lt;/span>
 &lt;/access-settings></code></pre>
       </section>
 
       <section id="styles">
-        <h3>Style des éléments</h3>
-        <p>Les pseudo-éléments
+        <h3 lang="fr">Style des éléments</h3>
+        <h3 lang="en">Elements style</h3>
+        <p lang="fr">Les pseudo-éléments
           <a href="https://developer.mozilla.org/fr/docs/Web/CSS/Reference/Selectors/::part">
             <code>::part</code>
           </a>
           suivants vous permettent de personnaliser entièrement le style du composant :
+        </p>
+        <p lang="en">The pseudo-elements
+          <a href="https://developer.mozilla.org/fr/docs/Web/CSS/Reference/Selectors/::part">
+            <code>::part</code>
+          </a>
+          following allow you to fully customize the style of the component :
         </p>
         <ul>
           <li><strong>details</strong> : élément <code>&lt;details></code>

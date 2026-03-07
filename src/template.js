@@ -1,4 +1,7 @@
 import { style } from "./style.js"
+import { Settings } from "./settings.js";
+
+const { bounds } = Settings;
 
 export const template = document.createElement('template');
 
@@ -34,15 +37,15 @@ template.innerHTML = `
         <label for="inverted-colors" part="invert-colors-label">Couleurs inversées</label>
       </div>
       <div class="field" part="contrast">
-        <input type="number" step="10" id="contrast" min="50" max="150" part="contrast-input">
+        <input type="number" step="10" id="contrast" min="${bounds.contrast[0]}" max="${bounds.contrast[1]}" part="contrast-input">
         <label for="contrast" part="contrast-label">Contraste</label>
       </div>
       <div class="field" part="font-size">
-        <input type="number" id="font-size" part="font-size-input" min="8" max="30">
+        <input type="number" id="font-size" part="font-size-input" min="${bounds.fontSize[0]}" max="${bounds.fontSize[1]}">
         <label for="font-size" part="font-size-label">Taille de police</label>
       </div>
       <div class="field" part="line-height">
-        <input type="number" id="line-height" step="0.1" part="line-height-input" min="0.8" max="3">
+        <input type="number" id="line-height" step="0.1" part="line-height-input" min="${bounds.lineHeight[0]}" max="${bounds.lineHeight[0]}">
         <label for="line-height" part="line-height-label">Interligne</label>
       </div>
       <slot name="option"></slot>

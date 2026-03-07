@@ -1,9 +1,9 @@
-import { preferences, onStateChange } from "./preferences.js"
+import { settings } from "./settings.js"
 
-const STORAGE_NAME = "preferences"
+const STORAGE_NAME = "access-settings"
 
 export function saveConfig() {
-  localStorage.setItem(STORAGE_NAME, JSON.stringify(preferences));
+  localStorage.setItem(STORAGE_NAME, JSON.stringify(settings));
 }
 
 export function loadConfig() {
@@ -12,7 +12,7 @@ export function loadConfig() {
 
   if (data) {
     for (let key in data) {
-      if (data[key] !== preferences[key]) preferences[key] = data[key];
+      if (data[key] !== settings[key]) settings[key] = data[key];
     }
   }
 
@@ -23,5 +23,5 @@ export function removeConfig() {
   localStorage.removeItem(STORAGE_NAME);
 }
 
-onStateChange(saveConfig);
+settings.addListener(saveConfig);
 loadConfig();

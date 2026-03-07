@@ -13,7 +13,7 @@ globalStyles.innerHTML = /*css*/`
     --access-font-size:16px;
     --access-contrast:100%;
   }
-  :root.dyslexic {
+  :root.dyslexicFont {
     font-family:var(--access-font-family);
     h1,h2,h3,h4,h5,h6, body, header, footer, main, article, section, aside, p {
       font-family:var(--access-font-family);
@@ -47,14 +47,14 @@ globalStyles.innerHTML = /*css*/`
     }
   }
   :root.invertedColors {
-    &:not(.contrasted) {
+    &:not(.contrast) {
       filter:invert(1);
     }
-    &.contrasted {
+    &.contrast {
       filter:invert(1) contrast(var(--access-contrast));
     }
   }
-  :root.contrasted {
+  :root.contrast {
     &:not(.invertedColors) {
       filter:contrast(var(--access-contrast));
     }

@@ -23,8 +23,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 **/
 
-import "./globalStyles.js"
-import { preferences, resetPrefs, onStateChange, offStateChange } from "./preferences.js"
+import { settings } from "./settings.js"
 import { template } from "./template.js"
 import languages from "./languages.json" with { type: "json" };
 import { removeConfig } from "./localStorage.js";
@@ -61,14 +60,14 @@ export class AccessSettings extends HTMLElement {
     this.#fontSizeField = root.querySelector("#font-size");
     this.#lineHeightField = root.querySelector("#line-height");
 
-    this.#fontField.addEventListener("change", e => preferences.dyslexicFont = e.target.checked);
-    this.#colorsField.addEventListener("change", e => preferences.invertedColors = e.target.checked);
+    this.#fontField.addEventListener("change", e => settings.dyslexicFont = e.target.checked);
+    this.#colorsField.addEventListener("change", e => settings.invertedColors = e.target.checked);
     this.#contrastField.addEventListener("change", this.#handleChangeNumValue("contrast"));
     this.#fontSizeField.addEventListener("change", this.#handleChangeNumValue("fontSize"));
     this.#lineHeightField.addEventListener("change", this.#handleChangeNumValue("lineHeight"));
 
     root.querySelector("#reset").addEventListener("click", () => {
-      resetPrefs();
+      settings.reset();
       removeConfig();
     });
     root.querySelector("#close").addEventListener("click", () => this.open = false);
@@ -82,7 +81,7 @@ export class AccessSettings extends HTMLElement {
 
   #handleChangeNumValue(prop) {
     return e => {
-      if (e.target.checkValidity()) preferences[prop] = Number(e.target.value)
+      if (e.target.checkValidity()) settings[prop] = Number(e.target.value)
     }
   }
 
@@ -91,7 +90,7 @@ export class AccessSettings extends HTMLElement {
       detail: {
         prop,
         value,
-        preferences
+        settings
       }
     });
 
@@ -111,11 +110,11 @@ export class AccessSettings extends HTMLElement {
   }
 
   #handleStateChange = (prop, value) => {
-    this.#fontField.checked = preferences.dyslexicFont;
-    this.#colorsField.checked = preferences.invertedColors;
-    this.#contrastField.value = String(preferences.contrast);
-    this.#fontSizeField.value = String(preferences.fontSize);
-    this.#lineHeightField.value = String(preferences.lineHeight);
+    this.#fontField.checked = settings.dyslexicFont;
+    this.#colorsField.checked = settings.invertedColors;
+    this.#contrastField.value = String(settings.contrast);
+    this.#fontSizeField.value = String(settings.fontSize);
+    this.#lineHeightField.value = String(settings.lineHeight);
 
     if (prop) this.#triggerEvent(prop, value);
   }
@@ -142,12 +141,12 @@ export class AccessSettings extends HTMLElement {
   connectedCallback() {
     this.#handleStateChange();
     this.handleLangChange();
-    onStateChange(this.#handleStateChange);
+    settings.addListener(this.#handleStateChange);
     this.#observer.observe( document.documentElement, { attributes: true });
   }
 
   disconnectedCallback() {
-    offStateChange(this.#handleStateChange);
+    settings.removeListener(this.#handleStateChange);
     this.#observer.disconnect();
   }
 

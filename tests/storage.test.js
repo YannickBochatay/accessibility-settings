@@ -1,5 +1,5 @@
 import { saveConfig, loadConfig, removeConfig } from "../src/localStorage.js";
-import { preferences } from "../src/preferences.js";
+import { settings } from "../src/settings.js";
 
 QUnit.module('local storage', () => {
 
@@ -8,13 +8,13 @@ QUnit.module('local storage', () => {
     assert.strictEqual(loadConfig(), null);
   });
 
-  QUnit.test('load config should return preferences saved', assert => {
+  QUnit.test('load config should return settings saved', assert => {
     removeConfig();
-    preferences.fontSize = 20;
-    preferences.dyslexicFont = true;
-    preferences.lineHeight = 1.8;
-    preferences.invertedColors = false;
-    preferences.contrast = 120;
+    settings.fontSize = 20;
+    settings.dyslexicFont = true;
+    settings.lineHeight = 1.8;
+    settings.invertedColors = false;
+    settings.contrast = 120;
 
     saveConfig();
     const config = loadConfig();
