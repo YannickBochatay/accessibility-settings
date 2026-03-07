@@ -1,7 +1,5 @@
 import { style } from "./style.js"
-import { Settings } from "./settings.js";
-
-const { bounds } = Settings;
+import { bounds } from "./settings.js";
 
 export const template = document.createElement('template');
 
@@ -45,7 +43,7 @@ template.innerHTML = `
         <label for="font-size" part="font-size-label">Taille de police</label>
       </div>
       <div class="field" part="line-height">
-        <input type="number" id="line-height" step="0.1" part="line-height-input" min="${bounds.lineHeight[0]}" max="${bounds.lineHeight[0]}">
+        <input type="number" id="line-height" step="0.1" part="line-height-input" min="${bounds.lineHeight[0]}" max="${bounds.lineHeight[1]}">
         <label for="line-height" part="line-height-label">Interligne</label>
       </div>
       <slot name="option"></slot>

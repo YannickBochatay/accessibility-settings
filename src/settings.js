@@ -37,106 +37,97 @@ export function toDashCase(str) {
   return str.replaceAll(/[A-Z]/g, m => '-' + m.toLowerCase());
 }
 
-export class Settings {
+export const bounds = {
+  contrast : [50, 150],
+  lineHeight : [0.8, 3],
+  fontSize : [6, 40]
+}
 
-  static bounds = {
-    contrast : [50, 150],
-    lineHeight : [0.8, 3],
-    fontSize : [6, 40]
-  }
+const initialValues = {
+  dyslexicFont : false,
+  invertedColors : false,
+  contrast : 100,
+  fontSize : getInitialFontSize(),
+  lineHeight : getInitialLineHeight()
+}
 
-  static initialValues = {
-    dyslexicFont : false,
-    invertedColors : false,
-    contrast : 100,
-    fontSize : getInitialFontSize(),
-    lineHeight : getInitialLineHeight()
-  }
+const listeners = [];
 
-  #listeners = []
-
-  constructor() {
-    const { initialValues } = this.constructor;
-
-    Object.defineProperties(this, {
-      _dyslexicFont : { writable : true, value : initialValues.dyslexicFont },
-      _invertedColors : { writable : true, value : initialValues.invertedColors },
-      _contrast : { writable : true, value : initialValues.contrast },
-      _fontSize : { writable : true, value : initialValues.fontSize },
-      _lineHeight : { writable : true, value : initialValues.lineHeight },
-
-      dyslexicFont : {
-        enumerable:true,
-        get : () => this._dyslexicFont,
-        set : value => this.#setBooleanValue("dyslexicFont", value)
-      },
-      invertedColors : {
-        enumerable:true,
-        get : () => this._invertedColors,
-        set : value => this.#setBooleanValue("invertedColors", value)
-      },
-      contrast : {
-        enumerable:true,
-        get : () => this._contrast,
-        set : value => this.#setNumberValue("contrast", value, "%")
-      },
-      lineHeight : {
-        enumerable:true,
-        get : () => this._lineHeight,
-        set : value => this.#setNumberValue("lineHeight", value)
-      },
-      fontSize : {
-        enumerable:true,
-        get : () => this._fontSize,
-        set : value => this.#setNumberValue("fontSize", value, "px")
-      }
-    })
-  }
-
+export const settings = {
   addListener(callback) {
-    this.#listeners.push(callback);
-  }
-  
+    listeners.push(callback);
+  },
   removeListener(callback) {
-    const index = this.#listeners.indexOf(callback);
-    if (index !== -1) this.#listeners.splice(index, 1);
-  }
-
+    const index = listeners.indexOf(callback);
+    if (index !== -1) listeners.splice(index, 1);
+  },
   reset() {
-    const { initialValues } = this.constructor;
     for (let key in initialValues) {
       if (this[key] !== initialValues[key]) this[key] = initialValues[key];
       root.classList.remove("fontSize", "lineHeight", "contrasted");
     }
   }
+};
 
-  #setValue(prop, value) {
-    this["_"+prop] = value;
-    this.#listeners.forEach(listener => listener(prop, value));
-  }
-
-  #setBooleanValue(prop, value) {
-    if (typeof value !== "boolean") throw new TypeError(`${prop} value must be a boolean`);
-    
-    if (value) root.classList.add(prop);
-    else root.classList.remove(prop);
-
-    this.#setValue(prop, value);
-  }
-
-  #setNumberValue(prop, value, unit="") {
-    if (typeof value !== "number") throw new TypeError(`${prop} value must be a number`);
-
-    const bounds = this.constructor.bounds[prop];
-    if (value < bounds[0] || value > bounds[1]) {
-      throw new RangeError(`${prop} value must be between ${bounds[0]} and ${bounds[1]}`);
-    }
-
-    root.classList.add(prop);
-    root.style.setProperty(`--access-${toDashCase(prop)}`, String(value) + unit);
-
-    this.#setValue(prop, value);
-  }
+function setValue(prop, value) {
+  settings["_"+prop] = value;
+  listeners.forEach(listener => listener(prop, value));
 }
 
-export const settings = new Settings();
+function setBooleanValue(prop, value) {
+  if (typeof value !== "boolean") throw new TypeError(`${prop} value must be a boolean`);
+  
+  if (value) root.classList.add(prop);
+  else root.classList.remove(prop);
+
+  setValue(prop, value);
+}
+
+function setNumberValue(prop, value, unit="") {
+  if (typeof value !== "number") throw new TypeError(`${prop} value must be a number`);
+
+  const propBounds = bounds[prop];
+  if (value < propBounds[0] || value > propBounds[1]) {
+    throw new RangeError(`${prop} value must be between ${propBounds[0]} and ${propBounds[1]}`);
+  }
+
+  root.classList.add(prop);
+  root.style.setProperty(`--access-${toDashCase(prop)}`, String(value) + unit);
+
+  setValue(prop, value);
+}
+
+Object.defineProperties(settings, {
+  _dyslexicFont : { writable : true, value : initialValues.dyslexicFont },
+  _invertedColors : { writable : true, value : initialValues.invertedColors },
+  _contrast : { writable : true, value : initialValues.contrast },
+  _fontSize : { writable : true, value : initialValues.fontSize },
+  _lineHeight : { writable : true, value : initialValues.lineHeight },
+
+  dyslexicFont : {
+    enumerable:true,
+    get() { return this._dyslexicFont },
+    set(value) { setBooleanValue("dyslexicFont", value); }
+  },
+  invertedColors : {
+    enumerable:true,
+    get() { return this._invertedColors },
+    set(value) { setBooleanValue("invertedColors", value); }
+  },
+  contrast : {
+    enumerable:true,
+    get() { return this._contrast },
+    set(value) { setNumberValue("contrast", value, "%"); }
+  },
+  lineHeight : {
+    enumerable:true,
+    get() { return this._lineHeight },
+    set(value) { setNumberValue("lineHeight", value); }
+  },
+  fontSize : {
+    enumerable:true,
+    get() { return this._fontSize },
+    set(value) { setNumberValue("fontSize", value, "px"); }
+  }
+});
+ 
