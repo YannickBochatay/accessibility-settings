@@ -1,5 +1,7 @@
 import { style } from "./style.js"
-import { bounds } from "./settings.js";
+import { settings } from "../settings/settings.js";
+
+const { bounds } = settings;
 
 export const template = document.createElement('template');
 

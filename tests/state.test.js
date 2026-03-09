@@ -1,5 +1,5 @@
-import { settings, getInitialFontSize, getInitialLineHeight } from "../src/settings.js";
-import "../src/globalStyles.js";
+import { settings } from "../src/settings/index.js";
+import { getInitialFontSize, getInitialLineHeight } from "../src/settings/utils.js"
 
 QUnit.module('initial state', hooks => {
 

@@ -452,6 +452,37 @@ access.addEventListener("change", e => {
 })</code></pre>
       </section>
     </section>
+    <section id="api-doc">
+      <h2>API</h2>
+      <section id="properties">
+        <h3>properties</h3>
+        <pre><code class="language-js" tabindex="0">import { settings } from "https://cdn.jsdelivr.net/npm/access-settings";
+
+settings.dyslexicFont = true;
+settings.invertedColors = false;
+settings.contrast = 110;
+settings.fontSize = 18;
+settings.lineHeight = 1.6;</code></pre>
+      </section>
+      <section id="reset">
+        <h3>reset</h3>
+        <pre><code class="language-js" tabindex="0">import { settings } from "https://cdn.jsdelivr.net/npm/access-settings";
+
+settings.dyslexicFont = true;
+settings.reset();</code></pre>
+      </section>
+      <section id="api-events">
+        <h3>events</h3>
+        <pre><code class="language-js" tabindex="0">import { settings } from "https://cdn.jsdelivr.net/npm/access-settings";
+
+function handleChange(prop, value) {
+  console.log(`property ${prop} has changed to ${value}`);
+}
+
+settings.addListener(handleChange);
+settings.removeListener(handleChange);</code></pre>
+      </section>
+    </section>
   </main>
   <access-settings all></access-settings>
 </body>

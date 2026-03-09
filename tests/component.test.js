@@ -1,5 +1,4 @@
-import "../src/index.js";
-import { settings } from "../src/settings.js";
+import { settings } from "../src/index.js";
 
 QUnit.module('component', hooks => {
 

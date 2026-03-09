@@ -1,61 +1,12 @@
-import "./globalStyles.js";
+import { toDashCase, getInitialFontSize, getInitialLineHeight } from "./utils.js";
 
 const root = document.documentElement;
-
-export function getInitialFontSize(elmt = root) {
-  let fontSize = getComputedStyle(elmt).fontSize;
-  return Number.parseInt(fontSize);
-}
-
-export function getInitialLineHeight(elmt = root) {
-  let lineHeight = getComputedStyle(elmt).lineHeight;
-
-  if (!isNaN(lineHeight)) return Number(lineHeight);
-
-  let value = Number.parseInt(lineHeight);
-
-  if (Number.isNaN(value)) {
-    if (elmt === root) {
-      let p = document.createElement("p");
-      p.style.margin = 0;
-      p.style.border = "none";
-      p.style.padding = 0;
-      p.textContent = "toto";
-      document.body.appendChild(p);
-      let lineHeight = getInitialLineHeight(p);
-      p.remove();
-      return lineHeight;
-    } else {
-      value = elmt.getBoundingClientRect().height;
-    }
-  }
-
-  return Math.round(value * 10 / getInitialFontSize()) / 10;
-}
-
-export function toDashCase(str) {
-  return str.replaceAll(/[A-Z]/g, m => '-' + m.toLowerCase());
-}
-
-export const bounds = {
-  contrast : [50, 150],
-  lineHeight : [0.8, 3],
-  fontSize : [6, 40]
-}
-
-const initialValues = {
-  dyslexicFont : false,
-  invertedColors : false,
-  contrast : 100,
-  fontSize : getInitialFontSize(),
-  lineHeight : getInitialLineHeight()
-}
 
 const listeners = [];
 
 export const settings = {
   addListener(callback) {
-    listeners.push(callback);
+    if (!listeners.includes(callback)) listeners.push(callback);
   },
   removeListener(callback) {
     const index = listeners.indexOf(callback);
@@ -64,7 +15,7 @@ export const settings = {
   reset() {
     for (let key in initialValues) {
       if (this[key] !== initialValues[key]) this[key] = initialValues[key];
-      root.classList.remove("fontSize", "lineHeight", "contrasted");
+      root.classList.remove("fontSize", "lineHeight", "contrast");
     }
   }
 };
@@ -86,9 +37,9 @@ function setBooleanValue(prop, value) {
 function setNumberValue(prop, value, unit="") {
   if (typeof value !== "number") throw new TypeError(`${prop} value must be a number`);
 
-  const propBounds = bounds[prop];
-  if (value < propBounds[0] || value > propBounds[1]) {
-    throw new RangeError(`${prop} value must be between ${propBounds[0]} and ${propBounds[1]}`);
+  const bounds = settings.bounds[prop];
+  if (value < bounds[0] || value > bounds[1]) {
+    throw new RangeError(`${prop} value must be between ${bounds[0]} and ${bounds[1]}`);
   }
 
   root.classList.add(prop);
@@ -97,7 +48,25 @@ function setNumberValue(prop, value, unit="") {
   setValue(prop, value);
 }
 
+const initialValues = {
+  dyslexicFont : false,
+  invertedColors : false,
+  contrast : 100,
+  fontSize : getInitialFontSize(),
+  lineHeight : getInitialLineHeight()
+};
+
+
 Object.defineProperties(settings, {
+  bounds : {
+    value : {
+      contrast : [50, 150],
+      lineHeight : [0.8, 3],
+      fontSize : [6, 40]
+    }
+  },
+  initialValues : { value : initialValues },
+
   _dyslexicFont : { writable : true, value : initialValues.dyslexicFont },
   _invertedColors : { writable : true, value : initialValues.invertedColors },
   _contrast : { writable : true, value : initialValues.contrast },
