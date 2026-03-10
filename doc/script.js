@@ -1,4 +1,4 @@
-import { AccessSettings } from "../src/index.js";
+import { AccessSettings, settings } from "../src/index.js";
 
 AccessSettings.languages.oc = {
   "dyslexic-font": "Poliça disléxica",
@@ -15,6 +15,16 @@ hljs.highlightAll();
 const access = document.querySelector("access-settings");
 
 const sections = document.querySelectorAll("main section:not(:first-child) section[id]");
+
+const checkbox = document.querySelector("#myCheckBox");
+
+checkbox.addEventListener("change", e => {
+  settings.dyslexicFont = e.target.checked;
+});
+
+settings.addEventListener("change-dyslexicFont", () => {
+  checkbox.checked = settings.dyslexicFont;
+})
 
 function hasEnoughSpaceForComponent() {
   const _open = access.open;

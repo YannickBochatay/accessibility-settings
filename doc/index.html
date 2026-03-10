@@ -58,30 +58,6 @@
 
       </section>
 
-      <section id="api">
-        <h3>API</h3>
-        
-        <p lang="fr">Vous pouvez aussi utiliser le script en tant qu'API
-        pour la fondre entièrement dans votre interface.</p>
-        <p lang="en">You can also use the script as an API
-          to melt it entirely in your interface.</p>
-        <pre><code class="language-js" tabindex="0">import { settings } from "https://cdn.jsdelivr.net/npm/access-settings";
-
-settings.dyslexicFont = true;
-settings.invertedColors = false;
-settings.contrast = 110;
-settings.fontSize = 18;
-settings.lineHeight = 1.6;
-
-function handleChange(prop, value) {
-  console.log(`property ${prop} has changed to ${value}`);
-}
-
-settings.addListener(handleChange);
-settings.reset();
-settings.removeListener(handleChange);</code></pre>
-      </section>
-
       <section id="bookmarklet">
         <h3>Bookmarklet <sup>(βeta)</sup></h3>
 
@@ -104,6 +80,30 @@ settings.removeListener(handleChange);</code></pre>
           that the quality of the css code, it may be that the component cannot load or work properly.</p>
 
       </section>
+
+      <section id="api">
+        <h3>API</h3>
+        
+        <p lang="fr">Vous pouvez aussi utiliser uniquement l'API et gérer vous-même
+          l'interface utilisateur.
+        </p>
+        <p lang="en">You can also use the API only and manage yourself the user interface.</p>
+        <pre><code class="language-js" tabindex="0">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings/dist/api.min.js";
+
+const checkBox = document.querySelector("#myCheckBox");
+
+checkBox.addEventListener("change", e => {
+  accessSettings.dyslexicFont = e.target.checked;
+});</code></pre>
+        <label>
+          <input type="checkbox" id="myCheckBox">
+          <span lang="fr">Appliquer la police dyslexie</span>
+          <span lang="en">Apply the dyslexia font</span>
+        </label>
+        <p>
+          <a href="#api-doc">Détails de l'API</a>
+        </p>
+    </section>
 
     </section>
     <section id="installation">
@@ -471,14 +471,14 @@ settings.reset();</code></pre>
       </section>
       <section id="api-events">
         <h3>events</h3>
-        <pre><code class="language-js" tabindex="0">import { settings } from "https://cdn.jsdelivr.net/npm/access-settings";
+        <pre><code class="language-js" tabindex="0">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings/dist/api.min.js";
 
 function handleChange(prop, value) {
   console.log(`property ${prop} has changed to ${value}`);
 }
 
-settings.addListener(handleChange);
-settings.removeListener(handleChange);</code></pre>
+accessSettings.addEventListener("change", handleChange);
+accessSettings.removeEventListener("change", handleChange);</code></pre>
       </section>
     </section>
   </main>
