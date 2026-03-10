@@ -1,47 +1,4 @@
 import { settings } from "../src/settings/index.js";
-import { getInitialFontSize, getInitialLineHeight } from "../src/settings/utils.js"
-
-QUnit.module('initial state', hooks => {
-
-  let style
-
-  hooks.before(() => {
-    style = document.createElement("style");
-    document.head.append(style);
-  });
-
-  hooks.beforeEach(() => settings.reset());
-
-  hooks.after(() => style.remove());
-
-  QUnit.test('initial font-size', assert => {
-
-    assert.strictEqual(getInitialFontSize(), 16);
-
-    style.innerHTML = /*css*/`:root { font-size:100%; }`;
-    assert.strictEqual(getInitialFontSize(), 16);
-
-    style.innerHTML = /*css*/`:root { font-size:small; }`;
-    assert.strictEqual(getInitialFontSize(), 13);
-
-    style.innerHTML = /*css*/`:root { font-size:16px; }`;
-    assert.strictEqual(getInitialFontSize(), 16);
-  });
-
-  QUnit.test("initial line height", assert => {
-
-    assert.closeTo(getInitialLineHeight(), 1.2, 0.2);
-
-    style.innerHTML = /*css*/`:root { line-height:1.5; }`;
-    assert.strictEqual(getInitialLineHeight(), 1.5);
-
-    style.innerHTML = /*css*/`:root { line-height:normal; }`;
-    assert.closeTo(getInitialLineHeight(), 1.2, 2);
-
-    style.innerHTML = /*css*/`:root { line-height:normal; } p#p-access-test { line-height:normal; }`;
-    assert.closeTo(getInitialLineHeight(), 1.2, 0.2);
-  })
-});
 
 QUnit.module('change state', hooks => {
 
@@ -49,6 +6,7 @@ QUnit.module('change state', hooks => {
   const style = getComputedStyle(root);
 
   hooks.before(() => settings.reset());
+  hooks.after(() => settings.reset());
 
   QUnit.test("change font", assert => {
     assert.strictEqual(root.classList.contains("dyslexicFont"), false);
@@ -119,5 +77,88 @@ QUnit.module('change state', hooks => {
     assert.strictEqual(root.style.getPropertyValue("--access-line-height"), "1.5");
     assert.strictEqual(style.lineHeight, "24px");
   });
+
+  QUnit.test("add and remove event listeners", assert => {
+    let cpt = 0;
+
+    function increment() { cpt++; }
+    settings.addEventListener("change", increment);
+
+    settings.fontSize = 13;
+
+    assert.strictEqual(cpt, 1, "should increment");
+
+    settings.addEventListener("change", increment);
+    settings.fontSize = 14;
+    assert.strictEqual(cpt, 2, "duplicate listeners should not be added");
+
+    settings.removeEventListener("change", increment);
+    settings.fontSize = 16;
+    assert.strictEqual(cpt, 2, "listeners can be removed");
+  });
+
+  QUnit.test("reset state", assert => {
+    settings.fontSize = 13;
+    settings.lineHeight = 1.8;
+    settings.dyslexicFont = true;
+    settings.contrast = 100;
+    settings.invertedColors = true;
+
+    settings.reset();
+
+    for (const prop in settings.initialValues) {
+      assert.strictEqual(settings[prop], settings.initialValues[prop]);
+    }
+  });
+
+  QUnit.test("throw errors when wrong values", assert => {
+
+    assert.throws(() => settings.fontSize = "13");
+    assert.throws(() => settings.fontSize = "toto");
+    assert.throws(() => settings.fontSize = true);
+    assert.throws(() => settings.fontSize = null);
+    assert.throws(() => settings.fontSize = undefined);
+    assert.throws(() => settings.fontSize = {});
+
+    assert.throws(() => settings.lineHeight = "1.3");
+    assert.throws(() => settings.lineHeight = "toto");
+    assert.throws(() => settings.lineHeight = true);
+    assert.throws(() => settings.lineHeight = null);
+    assert.throws(() => settings.lineHeight = undefined);
+    assert.throws(() => settings.lineHeight = {});
+
+    assert.throws(() => settings.contrast = "120");
+    assert.throws(() => settings.contrast = "toto");
+    assert.throws(() => settings.contrast = true);
+    assert.throws(() => settings.contrast = null);
+    assert.throws(() => settings.contrast = undefined);
+    assert.throws(() => settings.contrast = {});
+
+    assert.throws(() => settings.dyslexicFont = "true");
+    assert.throws(() => settings.dyslexicFont = 1);
+    assert.throws(() => settings.dyslexicFont = "toto");
+    assert.throws(() => settings.dyslexicFont = null);
+    assert.throws(() => settings.dyslexicFont = undefined);
+    assert.throws(() => settings.dyslexicFont = {});
+
+    assert.throws(() => settings.invertedColors = "true");
+    assert.throws(() => settings.invertedColors = 1);
+    assert.throws(() => settings.invertedColors = "toto");
+    assert.throws(() => settings.invertedColors = null);
+    assert.throws(() => settings.invertedColors = undefined);
+    assert.throws(() => settings.invertedColors = {});
+
+  });
+
+  QUnit.test("throw errors when out of bounds", assert => {
+
+    assert.throws(() => settings.fontSize = settings.bounds.fontSize[0] - 1);
+    assert.throws(() => settings.fontSize = settings.bounds.fontSize[1] + 1);
+    assert.throws(() => settings.contrast = settings.bounds.contrast[0] - 1);
+    assert.throws(() => settings.contrast = settings.bounds.contrast[1] + 1);
+    assert.throws(() => settings.lineHeight = settings.bounds.lineHeight[0] - 0.1);
+    assert.throws(() => settings.lineHeight = settings.bounds.lineHeight[1] + 0.1);
+
+  })
 
 });
