@@ -92,12 +92,40 @@ QUnit.module('change state', hooks => {
     settings.fontSize = 14;
     assert.strictEqual(cpt, 2, "duplicate listeners should not be added");
 
+    settings.fontSize = 14;
+    assert.strictEqual(cpt, 2, "same value should not trigger event");
+
     settings.removeEventListener("change", increment);
     settings.fontSize = 16;
     assert.strictEqual(cpt, 2, "listeners can be removed");
+
+    settings.addEventListener("change-inverted-colors", increment);
+    settings.fontSize = 16;
+    assert.strictEqual(cpt, 2, "specific listeners should not interfer others");
+    settings.invertedColors = true;
+    assert.strictEqual(cpt, 3, "specific listeners should work");
+    settings.invertedColors = true;
+    assert.strictEqual(cpt, 3, "same value should not trigger specific listener");
   });
 
-  QUnit.test("reset state", assert => {
+  QUnit.test("reset prop", assert => {
+    settings.fontSize = 13;
+    settings.lineHeight = 1.8;
+    settings.dyslexicFont = true;
+    settings.contrast = 100;
+    settings.invertedColors = true;
+
+    settings.reset("fontSize");
+    assert.strictEqual(settings.fontSize, settings.initialValues.fontSize);
+    assert.strictEqual(settings.lineHeight, 1.8, "specific reset should not interfer with other properties");
+
+    for (const prop in settings.initialValues) {
+      settings.reset(prop);
+      assert.strictEqual(settings[prop], settings.initialValues[prop]);
+    }
+  });
+
+  QUnit.test("reset all", assert => {
     settings.fontSize = 13;
     settings.lineHeight = 1.8;
     settings.dyslexicFont = true;

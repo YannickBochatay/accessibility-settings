@@ -470,7 +470,7 @@ settings.lineHeight = 1.6;</code></pre>
       </section>
       <section id="reset">
         <h3>reset</h3>
-        <pre><code class="language-js" tabindex="0">import { settings } from "https://cdn.jsdelivr.net/npm/access-settings";
+        <pre><code class="language-js" tabindex="0">import { settings } from "https://cdn.jsdelivr.net/npm/access-settings/dist/api.min.js";
 
 settings.dyslexicFont = true;
 settings.reset();</code></pre>
@@ -479,12 +479,16 @@ settings.reset();</code></pre>
         <h3>events</h3>
         <pre><code class="language-js" tabindex="0">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings/dist/api.min.js";
 
-function handleChange(prop, value) {
-  console.log(`property ${prop} has changed to ${value}`);
-}
+const checkBox = document.querySelector("#myCheckBox");
 
-accessSettings.addEventListener("change", handleChange);
-accessSettings.removeEventListener("change", handleChange);</code></pre>
+checkBox.addEventListener("change", e => {
+  accessSettings.dyslexicFont = e.target.checked;
+});
+
+// Checkbox will be checked if dyslexicFont is set by another way
+accessSettings.addEventListener("change", e => {
+  checkBox.checked = accessSettings.dyslexicFont;
+});</code></pre>
       </section>
     </section>
   </main>
