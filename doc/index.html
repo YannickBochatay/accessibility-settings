@@ -70,9 +70,9 @@
       <section id="bookmarklet">
         <h3>Bookmarklet <sup>(βeta)</sup></h3>
 
-        <p lang="fr">Vous pouvez utiliser le composant <code>&lt;access-settings></code>
+        <p lang="fr">En tant qu'internaute, vous pouvez utiliser le composant <code>&lt;access-settings></code>
         en tant que <a href="https://fr.wikipedia.org/wiki/Bookmarklet">bookmarklet</a>.</p>
-        <p lang="en">You can use the component <code>&lt;access-settings></code>
+        <p lang="en">As a user, you can use the component <code>&lt;access-settings></code>
         as a <a href="https://fr.wikipedia.org/wiki/Bookmarklet">bookmarklet</a>.</p>
 
         <p lang="fr">Pour cela, faites glisser le bouton suivant jusqu'à votre barre de favoris :</p>
@@ -165,8 +165,8 @@ checkBox.addEventListener("change", e => {
 
     <section id="utilisation">
 
-      <h2 lang="fr">Options d'utilisation</h2>
-      <h2 lang="en">Options</h2>
+      <h2 lang="fr">Options du composant</h2>
+      <h2 lang="en">Component options</h2>
 
       <section id="all">
         <h3>all</h3>
@@ -363,15 +363,15 @@ définir la propriété css <code>left</code> plutôt que <code>right</code>.</p
           following allow you to fully customize the style of the component :
         </p>
         <ul>
-          <li><strong>details</strong> : élément <code>&lt;details></code>
+          <li><strong>details</strong> : element <code>&lt;details></code>
             <ul>
-              <li><strong>summary</strong> : élément <code>&lt;summary></code>
+              <li><strong>summary</strong> : element <code>&lt;summary></code>
                 <ul>
-                  <li><strong>icon</strong> : élément <code>&lt;svg></code></li>
+                  <li><strong>icon</strong> : element <code>&lt;svg></code></li>
                 </ul>
               </li>
               <li>
-                <strong>form</strong> : élément <code>&lt;form></code>
+                <strong>form</strong> : element <code>&lt;form></code>
                 <ul>
                   <li>
                     <part-descript
@@ -440,17 +440,17 @@ input.addEventListener("change", () => {
         <h3>change</h3>
         <p>Vous pouvez ajouter des écouteurs sur l'évènement <code>change</code>.</p>
         <p>La propriété <code>detail</code> de l'évènement contient les propriétés :</p>
-          <ul>
-            <li>
-              <code>prop</code> : nom de la propriété modifiée
-            </li>
-            <li>
-              <code>value</code> : nouvelle valeur
-            </li>
-            <li>
-              <code>preferences</code> : valeurs actuelles de toutes les préférences
-            </li>
-          </ul>
+        <ul>
+          <li>
+            <code>prop</code> : nom de la propriété modifiée
+          </li>
+          <li>
+            <code>value</code> : nouvelle valeur
+          </li>
+          <li>
+            <code>preferences</code> : valeurs actuelles de toutes les préférences
+          </li>
+        </ul>
         <pre><code class="language-js" tabindex="0">const access = document.querySelector("access-settings");
 
 access.addEventListener("change", e => {
@@ -464,36 +464,60 @@ access.addEventListener("change", e => {
     <section id="api-doc">
       <h2>API</h2>
       <section id="properties">
-        <h3>properties</h3>
-        <pre><code class="language-js" tabindex="0">import { settings } from "https://cdn.jsdelivr.net/npm/access-settings";
-
-settings.dyslexicFont = true;
-settings.invertColors = false;
-settings.contrast = 110;
-settings.fontSize = 18;
-settings.lineHeight = 1.6;</code></pre>
-      </section>
-      <section id="reset">
-        <h3>reset</h3>
-        <pre><code class="language-js" tabindex="0">import { settings } from "https://cdn.jsdelivr.net/npm/access-settings/dist/api.min.js";
-
-settings.dyslexicFont = true;
-settings.reset();</code></pre>
-      </section>
-      <section id="api-events">
-        <h3>events</h3>
+        <h3 lang="fr">Propriétés</h3>
+        <h3 lang="en">Properties</h3>
         <pre><code class="language-js" tabindex="0">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings/dist/api.min.js";
 
-const checkBox = document.querySelector("#myCheckBox");
+accessSettings.dyslexicFont = true;
+accessSettings.invertColors = false;
+accessSettings.contrast = 110;
+accessSettings.fontSize = 18;
+accessSettings.lineHeight = 1.6;</code></pre>
+      </section>
+      <section id="reset">
+        <h3 lang="fr">Réinitialiser une propriété</h3>
+        <h3 lang="en">Reset a property</h3>
+        <pre><code class="language-js" tabindex="0">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings/dist/api.min.js";
 
-checkBox.addEventListener("change", e => {
-  accessSettings.dyslexicFont = e.target.checked;
+accessSettings.dyslexicFont = true;
+accessSettings.reset("dyslexicFont");</code></pre>
+      </section>
+      <section id="reset-all">
+        <h3 lang="fr">Tout réinitialiser</h3>
+        <h3 lang="en">Reset all</h3>
+        <pre><code class="language-js" tabindex="0">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings/dist/api.min.js";
+
+accessSettings.dyslexicFont = true;
+accessSettings.fontSize = 18;
+accessSettings.reset();</code></pre>
+      </section>
+      <section id="api-events">
+        <h3 lang="fr">Évènements</h3>
+        <h3 lang="en">Events</h3>
+        <p>Vous pouvez ajouter des écouteurs sur l'évènement <code>change</code>.</p>
+        <p>La propriété <code>detail</code> de l'évènement contient les propriétés :</p>
+        <ul>
+          <li>
+            <code>prop</code> : nom de la propriété modifiée
+          </li>
+          <li>
+            <code>value</code> : nouvelle valeur
+          </li>
+          <li>
+            <code>prevValue</code> : ancienne valeur
+          </li>
+        </ul>
+        <pre><code class="language-js" tabindex="0">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings/dist/api.min.js";
+
+accessSettings.addEventListener("change", e => {
+  const { prop, value, prevValue } = e.detail;
+
+  alert(`Property ${prop} has changed
+    from ${prevValue} to ${value}`);
 });
 
-// Checkbox will be checked if dyslexicFont is set by another way
-accessSettings.addEventListener("change", e => {
-  checkBox.checked = accessSettings.dyslexicFont;
-});</code></pre>
+accessSettings.fontSize = 20; // trigger event
+</code></pre>
       </section>
     </section>
   </main>
