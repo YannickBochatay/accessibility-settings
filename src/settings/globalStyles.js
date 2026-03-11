@@ -18,7 +18,7 @@ globalStyles.innerHTML = /*css*/`
     h1,h2,h3,h4,h5,h6, body, header, footer, main, article, section, aside, p {
       font-family:var(--access-font-family);
     }
-    &:has(access-settings[important]) {
+    &.important {
       h1,h2,h3,h4,h5,h6, body, header, footer, main, article, section, aside, p {
         font-family:var(--access-font-family) !important;
       }
@@ -29,7 +29,7 @@ globalStyles.innerHTML = /*css*/`
     body, header, footer, main, article, section, aside, p {
       line-height:var(--access-line-height);
     }
-    &:has(access-settings[important]) {
+    &.important {
       body, header, footer, main, article, section, aside, p {
         line-height:var(--access-line-height) !important;
       }
@@ -40,7 +40,7 @@ globalStyles.innerHTML = /*css*/`
     body, header, footer, main, article, section, aside, p {
       font-size:var(--access-font-size);
     }
-    &:has(access-settings[important]) {
+    &.important {
       body, header, footer, main, article, section, aside, p {
         font-size:var(--access-font-size) !important;
       }
@@ -62,17 +62,17 @@ globalStyles.innerHTML = /*css*/`
   
   @media (prefers-color-scheme: dark) {
     :root:has(access-settings[invert-colors], access-settings[all]) {
-      &:not(.contrasted) {
+      &:not(.contrast) {
         filter:invert(1);
       }
       &.contrasted {
         filter:invert(1) contrast(var(--access-contrast));
       }
       &.invertedColors {
-        &:not(.contrasted) {
+        &:not(.contrast) {
           filter:invert(0);
         }
-        &.contrasted {
+        &.contrast {
           filter:invert(0) contrast(var(--access-contrast));
         }
       }

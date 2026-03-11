@@ -159,6 +159,17 @@ QUnit.module('change state', hooks => {
     assert.throws(() => settings.lineHeight = settings.bounds.lineHeight[0] - 0.1);
     assert.throws(() => settings.lineHeight = settings.bounds.lineHeight[1] + 0.1);
 
+  });
+
+  QUnit.test("toggle class important", assert => {
+    assert.strictEqual(settings.important, false);
+    assert.strictEqual(root.classList.contains("important"), false);
+    settings.important = true;
+    assert.strictEqual(root.classList.contains("important"), true);
+    settings.important = false;
+    assert.strictEqual(root.classList.contains("important"), false);
+
+    assert.throws(() => settings.important = "yes");
   })
 
 });

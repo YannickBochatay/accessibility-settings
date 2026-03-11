@@ -14,7 +14,7 @@ export class AccessSettings extends HTMLElement {
     }
   })
 
-  static observedAttributes = ["lang"]
+  static observedAttributes = ["lang", "important"]
 
   #fontField
   #colorsField
@@ -114,8 +114,13 @@ export class AccessSettings extends HTMLElement {
     }
   }
 
+  #handleImportantChange() {
+    settings.important = this.hasAttribute("important");
+  }
+
   connectedCallback() {
     this.#handleStateChange();
+    this.#handleImportantChange();
     this.handleLangChange();
     settings.addEventListener("change", this.#handleStateChange);
     settings.load();
@@ -123,12 +128,13 @@ export class AccessSettings extends HTMLElement {
   }
 
   disconnectedCallback() {
-    settings.removeListener(this.#handleStateChange);
+    settings.removeEventListener("change", this.#handleStateChange);
     this.#observer.disconnect();
   }
 
   attributeChangedCallback(prop) {
     if (prop === "lang") this.handleLangChange();
+    else if (prop === "important") this.#handleImportantChange();
   }
 }
 

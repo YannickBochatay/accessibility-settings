@@ -19,7 +19,7 @@
     h1,h2,h3,h4,h5,h6, body, header, footer, main, article, section, aside, p {
       font-family:var(--access-font-family);
     }
-    &:has(access-settings[important]) {
+    &.important {
       h1,h2,h3,h4,h5,h6, body, header, footer, main, article, section, aside, p {
         font-family:var(--access-font-family) !important;
       }
@@ -30,7 +30,7 @@
     body, header, footer, main, article, section, aside, p {
       line-height:var(--access-line-height);
     }
-    &:has(access-settings[important]) {
+    &.important {
       body, header, footer, main, article, section, aside, p {
         line-height:var(--access-line-height) !important;
       }
@@ -41,7 +41,7 @@
     body, header, footer, main, article, section, aside, p {
       font-size:var(--access-font-size);
     }
-    &:has(access-settings[important]) {
+    &.important {
       body, header, footer, main, article, section, aside, p {
         font-size:var(--access-font-size) !important;
       }
@@ -63,17 +63,17 @@
   
   @media (prefers-color-scheme: dark) {
     :root:has(access-settings[invert-colors], access-settings[all]) {
-      &:not(.contrasted) {
+      &:not(.contrast) {
         filter:invert(1);
       }
       &.contrasted {
         filter:invert(1) contrast(var(--access-contrast));
       }
       &.invertedColors {
-        &:not(.contrasted) {
+        &:not(.contrast) {
           filter:invert(0);
         }
-        &.contrasted {
+        &.contrast {
           filter:invert(0) contrast(var(--access-contrast));
         }
       }
@@ -164,6 +164,17 @@
     _contrast: { writable: true, value: initialValues.contrast },
     _fontSize: { writable: true, value: initialValues.fontSize },
     _lineHeight: { writable: true, value: initialValues.lineHeight },
+    _important: { writable: true, value: false },
+    important: {
+      get() {
+        return this._important;
+      },
+      set(value) {
+        if (typeof value !== "boolean") throw new TypeError("value important must be a boolean");
+        this._important = value;
+        root2.classList[value ? "add" : "remove"]("important");
+      }
+    },
     dyslexicFont: {
       enumerable: true,
       get() {

@@ -65,6 +65,17 @@ Object.defineProperties(settings, {
   _fontSize : { writable : true, value : initialValues.fontSize },
   _lineHeight : { writable : true, value : initialValues.lineHeight },
 
+  _important : { writable : true, value : false },
+
+  important : {
+    get() { return this._important; },
+    set(value) {
+      if (typeof value !== "boolean") throw new TypeError("value important must be a boolean");
+      this._important = value;
+      root.classList[value ? "add" : "remove"]("important");
+    }
+  },
+
   dyslexicFont : {
     enumerable:true,
     get() { return this._dyslexicFont },
