@@ -1,8 +1,5 @@
 # access-settings
-Web component for accessibility settings
-
-## Demo and documentation
-https://yannickbochatay.github.io/access-settings/doc
+access-settings is a standalone web component that allows you to effortlessly add accessibility options to your websites.
 
 ![screenshot of component](./screenshot.png)
 
@@ -17,7 +14,7 @@ The fastest and simplest way to get started.
   <head>
     <meta charset="UTF-8">
     <title>My accessible page</title>
-    <script src="https://cdn.jsdelivr.net/npm/access-settings"></script>
+    <script src="https://cdn.jsdelivr.net/npm/access-settings@1.0.0" type="module"></script>
   </head>
   <body>
     <access-settings all></access-settings>
@@ -30,109 +27,10 @@ The fastest and simplest way to get started.
 npm install access-settings
 ```
 ```html
-<script src="node_modules/access-settings/dist/index.js"></script>
+<script src="node_modules/access-settings/dist/index.js" type="module"></script>
 ```
 
-### Direct download
+## Demo and full documentation
+[English version](https://yannickbochatay.github.io/access-settings/doc?lang=en)
 
-You can download the [file directly from GitHub](https://raw.githubusercontent.com/YannickBochatay/access-settings/refs/heads/main/dist/index.js).
-
-
-## Usage
-
-### Attributes
-#### all
-To display all the options, add the `all` attribute. Otherwise add specific options to display.
-```html
-<access-settings all>
-</access-settings>
-```
-```html
-<access-settings dyslexic-font invert-colors contrast font-size line-height>
-</access-settings>
-```
-
-#### side
-By default, the component has a fixed position at the right of the screen. The drop-down menu will align to the right with the icon. To position it on the left, use the ‘side’ attribute. 
-```html
-<access-settings side="left">
-</access-settings>
-```
-
-#### rounded
-To display the icon in a circle, use `rounded` attribute.
-```html
-<access-settings all rounded>
-</access-settings>
-```
-
-#### lang
-Component labels are based on `lang` attribute in the html tag. Languages available are english (**en**), french (**fr**) and spanish (**es**).
-
-## Customisation
-
-### Add language
-import { AccessSettings } from "https://cdn.jsdelivr.net/npm/access-settings";
-
-AccessSettings.languages.oc = {
-  "dyslexic-font": "Poliça disléxica",
-  "invert-colors": "Colors invertidas",
-  "contrast": "Contraste",
-  "font-size": "Talha de poliça",
-  "line-height": "Nautor de linha",
-  "reset": "Reïnicializar",
-  "close": "Tampar"
-};
-
-### Position
-Customise the position of the component in CSS
-```css
-accessibility-settings {
-  position:absolute;
-  top:5px;
-  right:5px;
-}
-```
-Define `left` css property if the attribute `side` is set to left.
-
-### Icon style
-```css
-access-settings::part(icon) {
-  background-color: brown;
-  fill:white;
-}
-```
-
-### Change icon
-```html
-<access-settings all>
-  <span slot="icon">⚙︎</span>
-</access-settings>
-```
-
-### Add more options
-```html
-<access-settings all>
-  <div slot="option">
-    <label>
-      <input type="checkbox">
-      One more option
-    </label>
-  </div>
-  <div slot="option">
-    <label>
-      <input type="checkbox"/>
-      Another option
-    </label>
-  </div>
-</access-settings>
-```
-Of course you'll have to write some javascript to make these new options work.
-
-Why not a web component ? It could look like this :
-```html
-<access-settings all>
-  <access-more-option1 slot="option"/>
-  <access-more-option2 slot="option"/>
-</access-settings>
-```
+[French version](https://yannickbochatay.github.io/access-settings/doc?lang=fr)

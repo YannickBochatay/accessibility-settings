@@ -51,7 +51,7 @@
         <p lang="en">Add the script call in the tag <code>&lt;head></code> from your html page : </p>
 
         <pre><code class="language-html" tabindex="0">&lt;script
-  src="https://cdn.jsdelivr.net/npm/access-settings"
+  src="https://cdn.jsdelivr.net/npm/access-settings@1.0.0"
   type="module"
 >&lt;/script></code></pre>
 
@@ -97,7 +97,7 @@
           l'interface utilisateur.
         </p>
         <p lang="en">You can also use the API only and manage yourself the user interface.</p>
-        <pre><code class="language-js" tabindex="0">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings/dist/api.min.js";
+        <pre><code class="language-js" tabindex="0">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings@1.0.0/dist/api.min.js";
 
 const checkBox = document.querySelector("#myCheckBox");
 
@@ -134,7 +134,7 @@ checkBox.addEventListener("change", e => {
     &lt;meta charset="UTF-8">
     &lt;title>My accessible page&lt;/title>
     &lt;script
-      src="https://cdn.jsdelivr.net/npm/access-settings"
+      src="https://cdn.jsdelivr.net/npm/access-settings@1.0.0"
       type="module"
     >
     &lt;/script>
@@ -300,7 +300,7 @@ checkBox.addEventListener("change", e => {
 
         <pre><code class="language-html" tabindex="0">&lt;!DOCTYPE html>
 &lt;html lang="oc"></code></pre>
-        <pre><code class="language-js" tabindex="0">import { AccessSettings } from "https://cdn.jsdelivr.net/npm/access-settings";
+        <pre><code class="language-js" tabindex="0">import { AccessSettings } from "https://cdn.jsdelivr.net/npm/access-settings@1.0.0";
 
 AccessSettings.languages.oc = {
   "dyslexic-font": "Poliça disléxica",
@@ -489,7 +489,7 @@ access.addEventListener("change", e => {
       <section id="properties">
         <h3 lang="fr">Propriétés</h3>
         <h3 lang="en">Properties</h3>
-        <pre><code class="language-js" tabindex="0">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings/dist/api.min.js";
+        <pre><code class="language-js" tabindex="0">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings@1.0.0/dist/api.min.js";
 
 accessSettings.dyslexicFont = true;
 accessSettings.invertColors = false;
@@ -500,7 +500,7 @@ accessSettings.lineHeight = 1.6;</code></pre>
       <section id="reset">
         <h3 lang="fr">Réinitialiser une propriété</h3>
         <h3 lang="en">Reset a property</h3>
-        <pre><code class="language-js" tabindex="0">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings/dist/api.min.js";
+        <pre><code class="language-js" tabindex="0">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings@1.0.0/dist/api.min.js";
 
 accessSettings.dyslexicFont = true;
 accessSettings.reset("dyslexicFont");</code></pre>
@@ -508,7 +508,7 @@ accessSettings.reset("dyslexicFont");</code></pre>
       <section id="reset-all">
         <h3 lang="fr">Tout réinitialiser</h3>
         <h3 lang="en">Reset all</h3>
-        <pre><code class="language-js" tabindex="0">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings/dist/api.min.js";
+        <pre><code class="language-js" tabindex="0">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings@1.0.0/dist/api.min.js";
 
 accessSettings.dyslexicFont = true;
 accessSettings.fontSize = 18;
@@ -538,7 +538,7 @@ accessSettings.reset();</code></pre>
             <span lang="en">previous value</span>
           </li>
         </ul>
-        <pre><code class="language-js" tabindex="0">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings/dist/api.min.js";
+        <pre><code class="language-js" tabindex="0">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings@1.0.0/dist/api.min.js";
 
 accessSettings.addEventListener("change", e => {
   const { prop, value, prevValue } = e.detail;
