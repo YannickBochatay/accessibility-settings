@@ -160,6 +160,8 @@ checkBox.addEventListener("change", e => {
 
         <p lang="fr">Ou encore télécharger directement le <a href="https://raw.githubusercontent.com/YannickBochatay/access-settings/refs/heads/main/dist/index.js">fichier</a> sur GitHub,
           ou uniquement l'<a href="https://raw.githubusercontent.com/YannickBochatay/access-settings/refs/heads/main/dist/api.js">API</a>.</p>
+        <p lang="en">Or also directly download the <a href="https://raw.githubusercontent.com/YannickBochatay/access-settings/refs/heads/main/dist/index.js">file</a> on GitHub,
+          or only the <a href="https://raw.githubusercontent.com/YannickBochatay/access-settings/refs/heads/main/dist/api.js">API</a>.</p>
       </section>
     </section>
 
@@ -376,31 +378,41 @@ définir la propriété css <code>left</code> plutôt que <code>right</code>.</p
                   <li>
                     <part-descript
                       field-name="dyslexic-font"
-                      field-descript="police dyslexie">
+                      field-descript-fr="police dyslexie"
+                      field-descript-en="dyslexia font"
+                    >
                     </part-descript>
                   </li>
                   <li>
                     <part-descript
                       field-name="invert-colors"
-                      field-descript="inversion des couleurs">
+                      field-descript-fr="inversion des couleurs"
+                      field-descript-en="invert colors"
+                    >
                     </part-descript>
                   </li>
                   <li>
                     <part-descript
                       field-name="contrast"
-                      field-descript="contraste">
+                      field-descript-fr="contraste"
+                      field-descript-en="contrast"
+                    >
                     </part-descript>
                   </li>
                   <li>
                     <part-descript
                       field-name="font-size"
-                      field-descript="taille de police">
+                      field-descript-fr="taille de police"
+                      field-descript-en="font-size"
+                    >
                     </part-descript>
                   </li>
                   <li>
                     <part-descript
                       field-name="line height"
-                      field-descript="hauteur de ligne">
+                      field-descript-fr="hauteur de ligne"
+                      field-descript-en="line-height"
+                    >
                     </part-descript>
                   </li>
                 </ul>
@@ -418,8 +430,10 @@ access-settings::part(font-size-label) {
       </section>
 
       <section id="add-option">
-        <h3>Ajouter des options</h3>
-        Vous pouvez ajouter des options de la façon suivante :
+        <h3 lang="fr">Ajouter des options</h3>
+        <h3 lang="en">Add options</h3>
+        <p lang="fr">Vous pouvez ajouter des options de la façon suivante :</p>
+        <p lang="en">You can add options as follows</p>
         <pre><code class="language-html" tabindex="0">&lt;access-settings all>
   &lt;div slot="option">
     &lt;label>
@@ -435,20 +449,29 @@ input.addEventListener("change", () => {
       </section>
     </section>
     <section id="evenements">
-      <h2>Évènements</h2>
+      <h2 lang="fr">Évènements</h2>
+      <h2 lang="en">Events</h2>
       <section id="change">
         <h3>change</h3>
-        <p>Vous pouvez ajouter des écouteurs sur l'évènement <code>change</code>.</p>
-        <p>La propriété <code>detail</code> de l'évènement contient les propriétés :</p>
+        <p lang="fr">Vous pouvez ajouter des écouteurs sur l'évènement <code>change</code>.</p>
+        <p lang="en">You can add listeners on the <code>change</code> event.</p>
+        <p lang="fr">La propriété <code>detail</code> de l'évènement contient les propriétés :</p>
+        <p lang="en">The <code>detail</code> property of the event contains the properties :</p>
         <ul>
           <li>
-            <code>prop</code> : nom de la propriété modifiée
+            <code>prop</code> :
+            <span lang="fr">nom de la propriété modifiée</span>
+            <span lang="en">name of the modified property</span>
           </li>
           <li>
-            <code>value</code> : nouvelle valeur
+            <code>value</code> :
+            <span lang="fr">nouvelle valeur</span>
+            <span lang="en">new value</span>
           </li>
           <li>
-            <code>preferences</code> : valeurs actuelles de toutes les préférences
+            <code>preferences</code> :
+            <span lang="fr">valeurs actuelles de toutes les préférences</span>
+            <span lang="en">current values of all preferences</span>
           </li>
         </ul>
         <pre><code class="language-js" tabindex="0">const access = document.querySelector("access-settings");
@@ -494,17 +517,25 @@ accessSettings.reset();</code></pre>
       <section id="api-events">
         <h3 lang="fr">Évènements</h3>
         <h3 lang="en">Events</h3>
-        <p>Vous pouvez ajouter des écouteurs sur l'évènement <code>change</code>.</p>
-        <p>La propriété <code>detail</code> de l'évènement contient les propriétés :</p>
+        <p lang="fr">Vous pouvez ajouter des écouteurs sur l'évènement <code>change</code>.</p>
+        <p lang="en">You can add listeners on the <code>change</code> event.</p>
+        <p lang="fr">La propriété <code>detail</code> de l'évènement contient les propriétés :</p>
+        <p lang="en">The <code>detail</code> property of the event contains the properties :</p>
         <ul>
           <li>
-            <code>prop</code> : nom de la propriété modifiée
+            <code>prop</code> :
+            <span lang="fr">nom de la propriété modifiée</span>
+            <span lang="en">name of the modified property</span>
           </li>
           <li>
-            <code>value</code> : nouvelle valeur
+            <code>value</code> :
+            <span lang="fr">nouvelle valeur</span>
+            <span lang="en">new value</span>
           </li>
           <li>
-            <code>prevValue</code> : ancienne valeur
+            <code>prevValue</code> :
+            <span lang="fr">valeur précédente</span>
+            <span lang="en">previous value</span>
           </li>
         </ul>
         <pre><code class="language-js" tabindex="0">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings/dist/api.min.js";
@@ -516,7 +547,7 @@ accessSettings.addEventListener("change", e => {
     from ${prevValue} to ${value}`);
 });
 
-accessSettings.fontSize = 20; // trigger event
+accessSettings.fontSize = 20; // triggers event
 </code></pre>
       </section>
     </section>
