@@ -1,5 +1,4 @@
 import { AccessSettings, settings } from "../dist/index.min.js";
-import hljs from 'https://cdn.jsdelivr.net/npm/highlight.js@11.11.1/+esm';
 
 const lang = /lang=(\w{2})/.exec(location.search)?.[1] ?? "en"
 
@@ -18,9 +17,6 @@ AccessSettings.languages.oc = {
   "reset": "Reïnicializar",
   "close": "Tampar"
 }
-
-hljs.highlightAll();
-
 const access = document.querySelector("access-settings");
 
 const sections = document.querySelectorAll("main section:not(:first-child) section[id]");
