@@ -570,6 +570,73 @@ accessSettings.fontSize = 20; // triggers event
 </code></pre>
       </section>
     </section>
+    <section id="depannage">
+      <h2 lang="fr">Dépannage</h2>
+      <h2 lang="en">Troubleshooting</h2>
+      <section id="load-error">
+        <h3 lang="fr">Erreur de chargement</h3>
+        <h3 lang="en">Loading error</h3>
+        <p lang="fr">Selon la <a href="https://developer.mozilla.org/fr/docs/Web/HTTP/Guides/CSP">stratégie de sécurité</a> de votre page web, il se peut que l'import du script depuis le serveur CDN soit impossible.</p>
+        <p lang="fr">Auquel cas vous pouvez installer la bibliothèque via <a href="#npm">NPM</a> ou par <a href="#direct-download">téléchargement direct</a>.</p>
+        <p lang="en">Depending on the <a href="https://developer.mozilla.org/fr/docs/Web/HTTP/Guides/CSP">security policy</a> of your web page, the import of the script from the CDN server may not be possible.</p>
+        <p lang="en">In which case you can install the library via <a href="#npm">NPM</a> or by <a href="#direct-download">direct download</a>.</p>
+      </section>
+      <section id="style-error">
+        <h3 lang="fr">Le style ne s'applique pas</h3>
+        <h3 lang="en">Style does not apply</h3>
+        <p lang="fr">Si la modification d'une préférence d'accessibilité reste sans effet, ou ne correspond pas au résultat attendu,
+          cela provient probablement du non respect des bonnes pratiques <code>css</code>.
+        </p>
+        <p lang="en">If the modification of an accessibility preference remains without effect, or does not correspond to the expected result,
+          this is probably due to the lack of respect for good practices <code>css</code>. </p>
+        <h4 lang="fr">Bonnes pratiques à respecter</h4>
+        <h4 lang="en">Good practices to follow</h4>
+        <ul>
+          <li>
+            <span lang="fr">Définir une taille absolue de police à la racine du document et n'utiliser <strong>que</strong>
+              des unités relatives pour tous les autres éléments.</span>
+            <span lang="en">Set an absolute font size at the root of the document use <strong>only</strong> relative units for all other elements. </span>
+            <section>
+              <span lang="fr">Mauvais exemple :</span>
+              <span lang="en">Bad example :</span>
+              <pre><code class="language-css" tabindex="0">h1 { font-size:32px; }
+p { font-size:16px; }</code></pre>
+            </section>
+            <section>
+              <span lang="fr">Bon exemple :</span>
+              <span lang="en">Good example :</span>
+              <pre><code class="language-css" tabindex="0">:root { font-size:16px; }
+h1 { font-size:2rem; } /* em, rem, % are ok */
+p { font-size:1rem;  }
+              </code></pre>
+            </section>
+          </li>
+          <li>
+            <span lang="fr">Définir les propriétés <code>css</code> sur les éléments génériques et non des sélecteurs trop spécifiques.</span>
+            <span lang="en">Define <code>css</code> properties on generic elements and not overly specific selectors.</span>            
+            <section>
+              <span lang="fr">Mauvais exemple :</span>
+              <span lang="en">Bad example :</span>
+              <pre><code class="language-css" tabindex="0">.title { font-family:Roboto,Arial,sans-serif; }
+.paragraphe { font-family:system-ui,sans-serif; }</code></pre>
+            </section>
+            <section>
+              <span lang="fr">Bon exemple :</span>
+              <span lang="en">Good example :</span>
+              <pre><code class="language-css" tabindex="0">h1,h2,h3 { font-family:Roboto,Arial,sans-serif; }
+p { font-family:system-ui,sans-serif;  }
+              </code></pre>
+            </section>
+          </li>
+        </ul>
+      </section>
+      <section id="autres-problemes">
+        <h3 lang="fr">Autres problèmes</h3>
+        <h3 lang="en">Other problems</h3>
+        <p lang="fr">Si vous rencontrez un autre problème, vous pouvez ouvrir un <a href="https://github.com/YannickBochatay/access-settings/issues">ticket</a> sur github.</p>
+        <p lang="en">If you encounter another problem, you can open an <a href="https://github.com/YannickBochatay/access-settings/issues">issue</a> on github.</p>
+      </section>
+    </section>
   </main>
   <access-settings all></access-settings>
 </body>
