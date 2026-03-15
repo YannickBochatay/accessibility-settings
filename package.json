@@ -1,8 +1,9 @@
 {
   "name": "access-settings",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "web component for accessibility settings",
   "main": "dist/index.js",
+  "files": ["dist/*"],
   "scripts": {
     "build-max": "esbuild src/index.js --bundle --format=esm --outfile=dist/index.js",
     "build-min": "esbuild src/index.js --bundle --minify --format=esm --outfile=dist/index.min.js",
