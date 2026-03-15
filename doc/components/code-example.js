@@ -29,6 +29,7 @@ template.innerHTML = `
           top:0;
           right:0;
           border:none;
+          display:none;
 
           svg {
             stroke-width:2;
@@ -38,10 +39,11 @@ template.innerHTML = `
             stroke-linejoin:round;
           }
         }
+
+        &:hover button {
+          display:inline-block;
+        }
       }
-    }
-    :host([nocopy]) > div > button {
-      display:none;
     }
   </style>
   <div tabindex="0">
