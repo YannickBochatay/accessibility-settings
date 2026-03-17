@@ -5,6 +5,7 @@ style.innerHTML = /*css*/ `
     position:fixed;
     left:5px;
     top:0.5rem;
+    z-index:1;
     &.right {
       left:unset;
       right:5px;
