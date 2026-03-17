@@ -31,8 +31,8 @@
     <section id="presentation">
       <h2 lang="fr">Présentation</h2>
       <h2 lang="en">Presentation</h2>
-      <p lang="fr"><code>access-settings</code> est un composant web autonome pour ajouter sans effort des options d'accessibilité à vos sites web.</p>
-      <p lang="en"><code>access-settings</code> is a standalone web component that lets you effortlessly add accessibility options to your websites.</p>
+      <p lang="fr"><code>access-settings</code> est un composant web autonome pour ajouter sans effort des options d'accessibilité à votre site web.</p>
+      <p lang="en"><code>access-settings</code> is a standalone web component that makes it easy to add accessibility options to your website.</p>
       
       <p lang="fr">Il est basé sur une API qu'il est possible d'utiliser indépendamment pour une intégration avancée.</p>
       <p lang="en">It's built around an API that can be used independently for advanced integration scenarios.</p>
@@ -49,7 +49,7 @@
         <p lang="en">Add the script tag to the <code>&lt;head&gt;</code> of your HTML page :</p>
 
         <code-example language="html">&lt;script
-  src="https://cdn.jsdelivr.net/npm/access-settings@1.0.0"
+  src="https://cdn.jsdelivr.net/npm/access-settings@1"
   type="module"
 >&lt;/script></code-example>
 
@@ -59,7 +59,7 @@
         <code-example language="html">&lt;access-settings all>&lt;/access-settings></code-example>
 
         <p lang="fr">Et le tour est joué ! Sur la droite de votre écran apparaît l'icône de configuration de vos préférences.</p>
-        <p lang="en">hat's it! A settings icon for configuring your preferences will appear on the right side of your screen.</p>
+        <p lang="en">That's it ! A settings icon for configuring your preferences will appear on the right side of your screen.</p>
         <p lang="fr">Pour une utilisation plus avancée, vous pouvez parcourir la suite de cette documentation.</p>
         <p lang="en">For more advanced usage, continue reading this documentation.</p>
 
@@ -98,7 +98,7 @@
           l'interface utilisateur.
         </p>
         <p lang="en">You can also use just the API and build your own user interface.</p>
-        <code-example language="js">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings@1.0.0/dist/api.min.js";
+        <code-example language="js">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings@1/dist/api.min.js";
 
 const checkBox = document.querySelector("#myCheckBox");
 
@@ -134,7 +134,7 @@ checkBox.addEventListener("change", e => {
     &lt;meta charset="UTF-8">
     &lt;title>My accessible page&lt;/title>
     &lt;script
-      src="https://cdn.jsdelivr.net/npm/access-settings@1.0.0"
+      src="https://cdn.jsdelivr.net/npm/access-settings@1"
       type="module"
     >
     &lt;/script>
@@ -301,7 +301,7 @@ checkBox.addEventListener("change", e => {
 
         <code-example language="html">&lt;!DOCTYPE html>
 &lt;html lang="oc"></code-example>
-        <code-example language="js">import { AccessSettings } from "https://cdn.jsdelivr.net/npm/access-settings@1.0.0";
+        <code-example language="js">import { AccessSettings } from "https://cdn.jsdelivr.net/npm/access-settings@1";
 
 AccessSettings.languages.oc = {
   "dyslexic-font": "Poliça disléxica",
@@ -487,7 +487,7 @@ access.addEventListener("change", e => {
       <section id="access">
         <h3 lang="fr">Accès</h3>
         <h3 lang="en">Access</h3>
-        <code-example language="js">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings@1.0.0/dist/api.min.js";</code-example>
+        <code-example language="js">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings@1/dist/api.min.js";</code-example>
       </section>
       <section id="properties">
         <h3 lang="fr">Propriétés</h3>
@@ -558,7 +558,7 @@ accessSettings.lineHeight = 1.6;</code-example>
             <span lang="en">previous value</span>
           </li>
         </ul>
-        <code-example language="js">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings@1.0.0/dist/api.min.js";
+        <code-example language="js">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings@1/dist/api.min.js";
 
 accessSettings.addEventListener("change", e => {
   const { prop, value, prevValue } = e.detail;

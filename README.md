@@ -1,5 +1,5 @@
 # access-settings
-access-settings is a standalone web component that allows you to effortlessly add accessibility options to your websites.
+access-settings is a standalone web component that makes it easy to add accessibility options to your website.
 
 ![screenshot of component](./screenshot.png)
 
@@ -14,7 +14,7 @@ The fastest and simplest way to get started.
   <head>
     <meta charset="UTF-8">
     <title>My accessible page</title>
-    <script src="https://cdn.jsdelivr.net/npm/access-settings@1.0.0" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/access-settings@1" type="module"></script>
   </head>
   <body>
     <access-settings all></access-settings>
