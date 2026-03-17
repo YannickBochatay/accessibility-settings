@@ -570,6 +570,40 @@ accessSettings.addEventListener("change", e => {
 accessSettings.fontSize = 20; // triggers event
 </code-example>
       </section>
+      <section id="api-add">
+        <h3 lang="fr">Ajouter une propriété</h3>
+        <h3 lang="en">Add custom property</h3>
+        <p lang="fr">Vous pouvez ajouter une propriété de la façon suivante :</p>
+        <p lang="fr">You can add a custom property as follows :</p>
+        <code-example language="js">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings@1/dist/api.min.js";
+
+const root = document.documentElement;
+const rootCStyle = getComputedStyle(root);
+
+Object.defineProperty(accessSettings, "color", {
+  // make the property enumerable so it can be saved
+  enumerable : true,
+  get() { return rootCStyle.color; },
+  set(value) {
+    root.style.color = value;
+    // trigger change event when property changes
+    this.triggerChange("color", value);
+  }
+});
+
+// define initial value to make the reset method work
+accessSettings.initialValues.color = rootCStyle.color;</code-example>
+<span lang="fr">Points à respecter :</span>
+<span lang="en">Points to respect :</span>
+<ul>
+  <li lang="fr">La propriété doit être énumérable.</li>
+  <li lang="en">Property must be enumerable.</li>
+  <li lang="fr">La méthode <code>triggerChange</code> doit être appelée quand la valeur de la propriété est modifiée.</li>
+  <li lang="en">Method <code>triggerChange</code> must be called when property value is changed.</li>
+  <li lang="fr">La valeur initiale doit être définie dans l'objet <code>accesSettings.initialValues</code>.</li>
+  <li lang="en">Initial value must be set in object <code>accesSettings.initialValues</code>.</li>
+</ul>
+      </section>
     </section>
     <section id="depannage">
       <h2 lang="fr">Dépannage</h2>
