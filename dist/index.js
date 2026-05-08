@@ -508,9 +508,9 @@ var AccessSettings = class extends HTMLElement {
     this.#lineHeightField = root3.querySelector("#line-height");
     this.#fontField.addEventListener("change", (e) => settings.dyslexicFont = e.target.checked);
     this.#colorsField.addEventListener("change", (e) => settings.invertColors = e.target.checked);
-    this.#contrastField.addEventListener("change", this.#handleChangeNumValue("contrast"));
-    this.#fontSizeField.addEventListener("change", this.#handleChangeNumValue("fontSize"));
-    this.#lineHeightField.addEventListener("change", this.#handleChangeNumValue("lineHeight"));
+    this.#contrastField.addEventListener("input", this.#handleChangeNumValue("contrast"));
+    this.#fontSizeField.addEventListener("input", this.#handleChangeNumValue("fontSize"));
+    this.#lineHeightField.addEventListener("input", this.#handleChangeNumValue("lineHeight"));
     root3.querySelector("#reset").addEventListener("click", () => {
       settings.reset();
       settings.remove();
@@ -524,7 +524,7 @@ var AccessSettings = class extends HTMLElement {
   }
   #handleChangeNumValue(prop) {
     return (e) => {
-      if (e.target.checkValidity()) settings[prop] = Number(e.target.value);
+      if (e.target.value !== "" && e.target.reportValidity()) settings[prop] = Number(e.target.value);
     };
   }
   #triggerEvents(prop, value) {
